@@ -1,0 +1,53 @@
+dependencies {    
+	
+    //compile 'log4j:log4j:1.2.17'
+    compile 'com.zaxxer:HikariCP:2.4.0'
+    compile 'com.alibaba:druid:1.0.15'
+    compile 'commons-dbcp:commons-dbcp:1.4'
+    compile 'c3p0:c3p0:0.9.1.2'
+    compile 'org.apache.curator:curator-framework:2.9.0'
+    compile 'org.apache.curator:curator-recipes:2.9.0'
+    compile 'com.google.code.gson:gson:2.3.1'
+    
+    compile "com.101tec:zkclient:0.5"
+    compile "redis.clients:jedis:3.0.0"
+    compile "org.mongodb:mongodb-driver:3.0.3"
+    compile "org.apache.zookeeper:zookeeper:3.4.6"
+    
+    
+    compile 'commons-lang:commons-lang:2.6'
+	compile 'commons-io:commons-io:2.4'
+	compile 'commons-beanutils:commons-beanutils:1.9.2'
+	
+	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.3'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.3'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-jcl', version: '2.3'
+    
+    compile "org.aspectj:aspectjrt:1.8.5"
+    compile "org.aspectj:aspectjweaver:1.8.5"
+       
+    compile ("com.alibaba:dubbox:2.8.3") {
+		exclude group: 'org.springframework', module: 'spring'
+	}
+    compile 'org.jboss.netty:netty:3.2.10.Final'
+    compile "org.javassist:javassist:3.15.0-GA"    
+    compile "org.springframework:spring-context:4.1.7.RELEASE"	
+    compile 'com.alibaba:fastjson:1.2.6'
+    compile "org.apache.commons:commons-pool2:2.3"
+    compile "org.apache.commons:commons-lang3:3.3.2"
+    compile "org.apache.kafka:kafka_2.11:0.8.2.1"
+   	
+    compile 'org.mybatis:mybatis:3.3.0'
+    compile 'org.mybatis:mybatis-spring:1.2.3'
+    compile 'mysql:mysql-connector-java:5.1.36'
+    compile 'org.springframework:spring-tx:4.1.7.RELEASE'
+    compile 'org.springframework:spring-jdbc:4.1.7.RELEASE' 
+    
+    compile "javax.servlet:javax.servlet-api:3.1.0"
+    compile "javax.servlet.jsp:javax.servlet.jsp-api:2.3.1"
+    
+    testCompile(
+            "org.springframework:spring-test:4.1.7.RELEASE",
+            "junit:junit:4.12"
+    )
+}
