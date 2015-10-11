@@ -5,7 +5,7 @@ import org.junit.Test;
 import com.myunihome.myxapp.paas.uniconfig.ZkAdminFactory;
 
 public class ZkAdminTest {
-	String path="/cache/etc";
+	String path="/zkadmin/cache/etc";
 	@Test
 	public void testUniConfigAdd(){
 		String data="Hello,Zookeeper!";
