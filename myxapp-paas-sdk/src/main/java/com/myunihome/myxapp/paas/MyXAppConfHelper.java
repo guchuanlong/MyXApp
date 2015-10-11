@@ -74,6 +74,18 @@ public final class MyXAppConfHelper {
     	}
     	return appId;
     }
+    
+    public String getAppDomainAndAppId(){
+    	String appDomain = prop.getProperty("paas.uniconfig.appDomain");
+    	if (StringUtil.isBlank(appDomain)) {
+    		throw new PaasRuntimeException("uniconfig appDomain is null");
+    	}
+    	String appId = prop.getProperty("paas.uniconfig.appId");
+    	if (StringUtil.isBlank(appId)) {
+    		throw new PaasRuntimeException("uniconfig appId is null");
+    	}
+    	return appDomain+"."+appId;
+    }
     /**
      * 配置中心类型.<br>
      * 目前仅支持zookeeper的配置中心paas.uniconfig.type=uniconfig_zk

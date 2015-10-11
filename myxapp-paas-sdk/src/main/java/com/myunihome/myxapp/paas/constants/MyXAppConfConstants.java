@@ -41,7 +41,33 @@ public final class MyXAppConfConstants {
      */
     public static final String PAAS_DOCSTORE_CONFIG_PATH = "/docstore/config";
     
+    //目前无需配置，直接用缓存中心的配置
     public static final String PAAS_UNISESSION_CONFIG_PATH = "/unisession/config";
+    
+    /**
+     * 消息生产者配置
+     * 示例数据：
+     * {
+     * 		"metadata.broker.list":"192.168.0.10:9092,192.168.0.10:9093,192.168.0.10:9094",
+     * 		"serializer.class":"kafka.serializer.StringEncoder",
+     * 		"producer.type":"async",
+     * 		"batch.num.messages":"100"
+     * } 
+     */
+    public static final String PAAS_UNIMESSAGE_PRODUCER_CONFIG_PATH="/unimessage/producer/config";
+    
+    /**
+     * 消息消费者配置
+     * 示例数据：
+     * {
+     * 		"group.id":"myxapp-kafka-test-group",
+     * 		"zookeeper.connect":"192.168.0.10:2181",
+     * 		"zookeeper.connectiontimeout.ms":"1000000"
+     * } 
+     */
+    public static final String PAAS_UNIMESSAGE_CONSUMER_CONFIG_PATH="/unimessage/consumer/config";
+    
+    
     
     public static final String PAAS_SSO_CONFIG_PATH = "/sso/config";
     
@@ -162,7 +188,7 @@ public final class MyXAppConfConstants {
     public static final String PAAS_DATASOURCE_C3P0_CONFIG_PATH = "/datasource/c3p0/config";
     
     public static final String PAAS_TXS_CONFIG_PATH = "/txs/config";
-    public static final String PAAS_ATS_CONFIG_PATH = "/ats/config";
+    public static final String PAAS_ATXS_CONFIG_PATH = "/atxs/config";
     public static final String PAAS_MQ_CONFIG_PATH = "/mq/config";
     
     
@@ -190,11 +216,6 @@ public final class MyXAppConfConstants {
     public static final String PAAS_DBS_PATH = "/com/gucl/myapp/paas-dbs";
 
     /**
-     * 当前系统需要使用的DSS服务集合,支持多个 /com/gucl/myapp/paas-dss "DSS001,DSS002"
-     */
-    public static final String PAAS_DSS_PATH = "/com/gucl/myapp/paas-dss";
-
-    /**
      * 引用该Util的中心产品的ATS的SignId，可以有多个,以逗号隔开。格式如下：
      * <p/>
      * /com/gucl/myapp/paas-ats-signatureId signatureId-bd5ff9b1-6f4d-4bbe-899e-840fc57b4cf0
@@ -205,14 +226,5 @@ public final class MyXAppConfConstants {
      * 配置ATS服务对应的签名ID {key:value} 其中key="com.xx.xx.IXXSV#method1" value="signatureId"
      */
     public static final String PAAS_ATS_SERVICE_SIGNATUREID_MAPPED_PATH  = "/com/gucl/myapp/paas-atsservice-signatureId-mapped";
-
-
-    public static final String MCS = "mcs";
-
-    public static final String TXS = "txs";
-
-    public static final String DBS = "dbs";
-
-    public static final String DSS = "dss";
 
 }
