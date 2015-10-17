@@ -12,7 +12,7 @@ import java.util.UUID;
 public class SessionManager {
 
     private Logger log = Logger.getLogger(SessionManager.class);
-    private static final String SESSION_ID_PREFIX = "MYXAPP_PAAS_JSID_";
+    private static final String SESSION_ID_PREFIX = "MYXAPP_JSID_";
     private static String SESSION_ID_COOKIE = "MYXAPP_JSESSIONID";
     private SessionClient sessionClient = new SessionClient();
     private int expirationUpdateInterval = 300;
