@@ -1,8 +1,8 @@
 package com.myunihome.myxapp.utils.util;
 
-import com.myunihome.myxapp.paas.base.dubbo.exception.BusinessException;
-import com.myunihome.myxapp.paas.base.dubbo.exception.CallerException;
-import com.myunihome.myxapp.paas.base.dubbo.exception.SystemException;
+import com.myunihome.myxapp.base.dubbo.exception.BusinessException;
+import com.myunihome.myxapp.base.dubbo.exception.CallerException;
+import com.myunihome.myxapp.base.dubbo.exception.SystemException;
 import com.myunihome.myxapp.paas.constants.MyXAppPaaSConstant;
 import com.myunihome.myxapp.paas.util.ExceptionUtil;
 import com.myunihome.myxapp.paas.util.StringUtil;
