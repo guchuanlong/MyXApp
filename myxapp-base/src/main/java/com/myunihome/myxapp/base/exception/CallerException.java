@@ -1,4 +1,4 @@
-package com.myunihome.myxapp.base.dubbo.exception;
+package com.myunihome.myxapp.base.exception;
 
 import java.io.Serializable;
 

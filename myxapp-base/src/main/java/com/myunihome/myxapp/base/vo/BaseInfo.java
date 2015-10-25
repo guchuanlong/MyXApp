@@ -1,4 +1,4 @@
-package com.myunihome.myxapp.base.dubbo.vo;
+package com.myunihome.myxapp.base.vo;
 
 import java.io.Serializable;
 
