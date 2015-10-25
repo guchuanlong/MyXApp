@@ -270,7 +270,7 @@ publishing {
                             delegate.version("3.1.0")
                         }
                         delegate.dependency {
-                            delegate.groupId("javax.servlet")
+                            delegate.groupId("javax.servlet.jsp")
                             delegate.artifactId("javax.servlet.jsp-api")
                             delegate.version("2.3.1")
                         }
