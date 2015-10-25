@@ -5,3 +5,25 @@ dependencies {
             "junit:junit:4.12"
     )
 }
+
+
+publishing {
+    publications {
+        publishing.publications.create("${appName}", MavenPublication) {
+            groupId group
+            artifactId appName
+            version moduleVersion
+            artifact jar
+            pom.withXml {}           
+        }
+    }
+    repositories {
+        maven {
+            url publishURL
+            credentials {
+                username = publishUserName
+                password = publishUserPassword
+            }
+        }
+    }
+}
