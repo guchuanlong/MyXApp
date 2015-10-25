@@ -65,6 +65,9 @@ dependencies {
     //mysql
     compile 'mysql:mysql-connector-java:5.1.36'
     
+    //ws
+    compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
+    
     testCompile(
             "org.springframework:spring-test:4.1.7.RELEASE",
             "junit:junit:4.12"
@@ -292,6 +295,13 @@ publishing {
                             delegate.groupId("mysql")
                             delegate.artifactId("mysql-connector-java")
                             delegate.version("5.1.36")
+                        }
+                        
+                        //ws
+                        delegate.dependency {
+                            delegate.groupId("javax.ws.rs")
+                            delegate.artifactId("javax.ws.rs-api")
+                            delegate.version("2.0.1")
                         }
                         
                     }
