@@ -46,7 +46,7 @@ public class SessionClient {
     	LOG.debug("【-_-】SessionClient.getCacheClient() begin.........................");
     	String NameSpace = getSessionPassNameSpace();
     	LOG.debug("【-_-】SessionClient.getCacheClient() 统一缓存命名空间为配置值："+NameSpace);
-    	ICacheClient CacheClient =  CacheFactory.getCacheClient();
+    	ICacheClient CacheClient =  CacheFactory.getCacheClient(NameSpace);
     	long t2=System.currentTimeMillis()-t1;   
 
     	LOG.debug("【-_-】SessionClient.getCacheClient() end........" +
