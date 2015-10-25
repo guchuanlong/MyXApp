@@ -78,6 +78,8 @@ project("myxapp-base") {
             attributes 'packageName': appName, 'Built-By': builtBy, 'create-date': new Date().format('yyyy-MM-dd HH:mm:ss')
         }
     }
+    
+    publish.dependsOn build
 }
 
 project("myxapp-utils") {
@@ -93,6 +95,8 @@ project("myxapp-utils") {
             attributes 'packageName': appName, 'Built-By': builtBy, 'create-date': new Date().format('yyyy-MM-dd HH:mm:ss')
         }
     }
+    
+    publish.dependsOn build
 }
 
 project("myxapp-uip") {
@@ -108,6 +112,8 @@ project("myxapp-uip") {
             attributes 'packageName': appName, 'Built-By': builtBy, 'create-date': new Date().format('yyyy-MM-dd HH:mm:ss')
         }
     }
+    
+    publish.dependsOn build
 }
 
 jar {
