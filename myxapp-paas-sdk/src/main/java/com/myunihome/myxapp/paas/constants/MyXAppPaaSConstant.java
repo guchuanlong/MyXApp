@@ -7,6 +7,7 @@ public class MyXAppPaaSConstant
   public static final String UNIX_SEPERATOR = "/";
   public static final String LINE_SEPARATOR = System.getProperty("line.separator");
   public static final String TAB = "\t";
+  public static final String DEFAULT = "default";
 
   public static final class ExceptionCode
   {

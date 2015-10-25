@@ -15,9 +15,12 @@ public class CacheConfigTest {
 		
 		StringBuilder sb=new StringBuilder();
 		sb.append("{");
-		sb.append("	\"jedisPoolConfig\":{\"maxTotal\":\"500\",\"maxIdle\":\"5\",\"maxWaitMillis\":\"10000\",\"testOnBorrow\":\"true\"},");
-		sb.append(" \"jedisHostAndPorts\":\"127.0.0.1:6379\",");
-		sb.append("	\"password\":\"123456\" ");
+		sb.append("\"default\":");
+		sb.append("  {");
+		sb.append("	  \"jedisPoolConfig\":{\"maxTotal\":\"500\",\"maxIdle\":\"5\",\"maxWaitMillis\":\"10000\",\"testOnBorrow\":\"true\"},");
+		sb.append("   \"jedisHostAndPorts\":\"127.0.0.1:6379\",");
+		sb.append("	  \"password\":\"123456\" ");
+		sb.append("  }");
 		sb.append("}");
 		String data=sb.toString();
 		UniConfigFactory.getUniConfigClient().add(path, data);
@@ -35,10 +38,13 @@ public class CacheConfigTest {
 	public void testCacheConfigModify(){
 		StringBuilder sb=new StringBuilder();
 		sb.append("{");
-		sb.append("	\"jedisPoolConfig\":{\"maxTotal\":\"500\",\"maxIdle\":\"5\",\"maxWaitMillis\":\"10000\",\"testOnBorrow\":\"true\"},");
-//		sb.append(" \"jedisHostAndPorts\":\"192.168.0.10:6379\",");
-		sb.append(" \"jedisHostAndPorts\":\"192.168.0.10:7001,192.168.0.10:7002,192.168.0.10:7003,192.168.0.10:7004,192.168.0.10:7005,192.168.0.10:7006\",");
-		sb.append("	\"password\":\"123456\" ");
+		sb.append("\"default\":");
+		sb.append("  {");
+		sb.append("	    \"jedisPoolConfig\":{\"maxTotal\":\"500\",\"maxIdle\":\"5\",\"maxWaitMillis\":\"10000\",\"testOnBorrow\":\"true\"},");
+//		sb.append("     \"jedisHostAndPorts\":\"192.168.0.10:6379\",");
+		sb.append("     \"jedisHostAndPorts\":\"192.168.0.10:7001,192.168.0.10:7002,192.168.0.10:7003,192.168.0.10:7004,192.168.0.10:7005,192.168.0.10:7006\",");
+		sb.append(" 	\"password\":\"123456\" ");
+		sb.append("	 }");
 		sb.append("}");
 		String data=sb.toString();
 		System.out.println("修改前数据["+path+"]，data="+queryConfig());

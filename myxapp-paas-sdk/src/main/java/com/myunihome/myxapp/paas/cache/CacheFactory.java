@@ -10,7 +10,9 @@ import com.myunihome.myxapp.paas.MyXAppConfHelper;
 import com.myunihome.myxapp.paas.cache.client.ICacheClient;
 import com.myunihome.myxapp.paas.cache.client.impl.CacheClient;
 import com.myunihome.myxapp.paas.cache.client.impl.CacheClusterClient;
+import com.myunihome.myxapp.paas.constants.MyXAppPaaSConstant;
 import com.myunihome.myxapp.paas.model.CacheConfigInfo;
+import com.myunihome.myxapp.paas.util.StringUtil;
 
 /**
  * 缓存工厂
@@ -28,14 +30,20 @@ public final class CacheFactory {
     private static Map<String, ICacheClient> cacheClients = new ConcurrentHashMap<String, ICacheClient>();
     
     public static ICacheClient getCacheClient(){
+            return getCacheClient(MyXAppPaaSConstant.DEFAULT);
+      }
+    
+    public static ICacheClient getCacheClient(String namespace){
         ICacheClient cacheClient = null;
-        
+        if(StringUtil.isBlank(namespace)){
+        	namespace=MyXAppPaaSConstant.DEFAULT;
+        }
         String appDomain=MyXAppConfHelper.getInstance().getAppDomain();
         String appId=MyXAppConfHelper.getInstance().getAppId();
-        String cacheClientId=appDomain+"-"+appId;
+        String cacheClientId=appDomain+"$"+appId+"$"+namespace;
         //获取配置信息
         LOG.info("Get CacheConfigInfo ...");
-        CacheConfigInfo cacheConfigInfo=MyXAppConfHelper.getInstance().getCacheConfig();
+        CacheConfigInfo cacheConfigInfo=MyXAppConfHelper.getInstance().getCacheConfig(namespace);
         
         if (cacheClients.containsKey(cacheClientId)) {
           cacheClient = (ICacheClient)cacheClients.get(cacheClientId);

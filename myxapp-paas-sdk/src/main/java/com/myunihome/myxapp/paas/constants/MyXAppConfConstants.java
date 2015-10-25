@@ -16,9 +16,24 @@ public final class MyXAppConfConstants {
      * <p/>
      * 示例数据：
      * {
-     * 		"jedisPoolConfig":{"maxTotal":"500","maxIdle":"5","maxWaitMillis":"10000","testOnBorrow":"true"}, 
-     * 		"jedisHostAndPorts":"192.168.0.11:6379,192.168.0.12:6379,192.168.0.13:6379", 
-     * 		"password":"123456"
+     *   "default":
+     *   {
+     * 	  	  "jedisPoolConfig":{"maxTotal":"500","maxIdle":"5","maxWaitMillis":"10000","testOnBorrow":"true"}, 
+     * 		  "jedisHostAndPorts":"192.168.0.11:6379,192.168.0.12:6379,192.168.0.13:6379", 
+     * 		  "password":"123456"
+     *   },
+     *   "unisession":
+     *   {
+     * 	  	  "jedisPoolConfig":{"maxTotal":"500","maxIdle":"5","maxWaitMillis":"10000","testOnBorrow":"true"}, 
+     * 		  "jedisHostAndPorts":"192.168.0.21:6379,192.168.0.22:6379,192.168.0.23:6379", 
+     * 		  "password":"123456"
+     *   },
+     *   "docstore":
+     *   {
+     * 	  	  "jedisPoolConfig":{"maxTotal":"500","maxIdle":"5","maxWaitMillis":"10000","testOnBorrow":"true"}, 
+     * 		  "jedisHostAndPorts":"192.168.0.31:6379,192.168.0.32:6379,192.168.0.33:6379", 
+     * 		  "password":"123456"
+     *   }
      * }
      */
     public static final String PAAS_CACHE_CONFIG_PATH = "/cache/config";
@@ -29,15 +44,41 @@ public final class MyXAppConfConstants {
      * 
      * 示例数据：
      * {
-     * 		"mongoDBHostAndPorts":"192.168.0.11:27017,192.168.0.12:27017,192.168.0.13:27017",
-     * 		"mongoDBDataBaseName":"myappdb01",
-     * 		"mongoDBUserName":"myappdbusr01",
-     * 		"mongoDBPassword":"password",
-     * 		"redisHostAndPorts":"192.168.0.21:6379,192.168.0.22:6379,192.168.0.23:6379",
-     * 		"mongoDBGridFSBucket":"mygridfs01",
-     * 		"mongoDBGridFSFileLimitSize":"1024",
-     * 		"mongoDBGridFSMaxSize":"1"
-     * } 
+     *   "default":
+     *   {
+     * 		  "mongoDBHostAndPorts":"192.168.0.11:27017,192.168.0.12:27017,192.168.0.13:27017",
+     * 		  "mongoDBDataBaseName":"myappdb01",
+     * 		  "mongoDBUserName":"myappdbusr01",
+     * 	  	  "mongoDBPassword":"password",
+     * 		  "redisHostAndPorts":"192.168.0.21:6379,192.168.0.22:6379,192.168.0.23:6379",
+     * 		  "mongoDBGridFSBucket":"mygridfs01",
+     * 		  "mongoDBGridFSFileLimitSize":"1024",
+     * 		  "mongoDBGridFSMaxSize":"1"
+     *   },
+     *   "doorweb":
+     *   {
+     * 		  "mongoDBHostAndPorts":"192.168.0.11:27017,192.168.0.12:27017,192.168.0.13:27017",
+     * 		  "mongoDBDataBaseName":"myappdb01",
+     * 		  "mongoDBUserName":"myappdbusr01",
+     * 	  	  "mongoDBPassword":"password",
+     * 		  "redisHostAndPorts":"192.168.0.21:6379,192.168.0.22:6379,192.168.0.23:6379",
+     * 		  "mongoDBGridFSBucket":"mygridfs01",
+     * 		  "mongoDBGridFSFileLimitSize":"1024",
+     * 		  "mongoDBGridFSMaxSize":"1"
+     *   },
+     *   "crmweb":
+     *   {
+     * 		  "mongoDBHostAndPorts":"192.168.0.11:27017,192.168.0.12:27017,192.168.0.13:27017",
+     * 		  "mongoDBDataBaseName":"myappdb01",
+     * 		  "mongoDBUserName":"myappdbusr01",
+     * 	  	  "mongoDBPassword":"password",
+     * 		  "redisHostAndPorts":"192.168.0.21:6379,192.168.0.22:6379,192.168.0.23:6379",
+     * 		  "mongoDBGridFSBucket":"mygridfs01",
+     * 		  "mongoDBGridFSFileLimitSize":"1024",
+     * 		  "mongoDBGridFSMaxSize":"1"
+     *   }
+     *    
+     * }
      */
     public static final String PAAS_DOCSTORE_CONFIG_PATH = "/docstore/config";
     

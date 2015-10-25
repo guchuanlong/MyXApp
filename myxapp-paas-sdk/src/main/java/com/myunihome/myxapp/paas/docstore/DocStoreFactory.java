@@ -7,9 +7,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.myunihome.myxapp.paas.MyXAppConfHelper;
+import com.myunihome.myxapp.paas.constants.MyXAppPaaSConstant;
 import com.myunihome.myxapp.paas.docstore.client.IDocStoreClient;
 import com.myunihome.myxapp.paas.docstore.client.impl.DocStoreClient;
 import com.myunihome.myxapp.paas.model.DocStoreConfigInfo;
+import com.myunihome.myxapp.paas.util.StringUtil;
 
 public final class DocStoreFactory {
     
@@ -21,12 +23,19 @@ public final class DocStoreFactory {
     private static Map<String, IDocStoreClient> docStoreClients = new ConcurrentHashMap<String, IDocStoreClient>();
 
     public static IDocStoreClient getDocStorageClient() {
+        return getDocStorageClient(MyXAppPaaSConstant.DEFAULT);
+    }
+    
+    public static IDocStoreClient getDocStorageClient(String namespace) {
         IDocStoreClient docStoreClient = null;
+        if(StringUtil.isBlank(namespace)){
+        	namespace=MyXAppPaaSConstant.DEFAULT;
+        }
         LOG.debug("Get DocStore Conf ...");
-        DocStoreConfigInfo config=MyXAppConfHelper.getInstance().getDocStoreConfig();
+        DocStoreConfigInfo config=MyXAppConfHelper.getInstance().getDocStoreConfig(namespace);
         String appDomain=MyXAppConfHelper.getInstance().getAppDomain();
         String appId=MyXAppConfHelper.getInstance().getAppId();
-        String docStoreKey=appDomain+"$"+appId;
+        String docStoreKey=appDomain+"$"+appId+"$"+namespace;
         
         if (docStoreClients.containsKey(docStoreKey)) {
           docStoreClient = (IDocStoreClient)docStoreClients.get(docStoreKey);

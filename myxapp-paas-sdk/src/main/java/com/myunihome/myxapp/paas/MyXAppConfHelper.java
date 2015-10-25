@@ -2,10 +2,16 @@ package com.myunihome.myxapp.paas;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.myunihome.myxapp.paas.constants.MyXAppConfConstants;
+import com.myunihome.myxapp.paas.constants.MyXAppPaaSConstant;
 import com.myunihome.myxapp.paas.exception.PaasRuntimeException;
 import com.myunihome.myxapp.paas.model.C3P0DataSourceConfig;
 import com.myunihome.myxapp.paas.model.CacheConfigInfo;
@@ -16,6 +22,7 @@ import com.myunihome.myxapp.paas.model.HikariCPDataSourceConfig;
 import com.myunihome.myxapp.paas.model.UniConfigZkInfo;
 import com.myunihome.myxapp.paas.uniconfig.UniConfigFactory;
 import com.myunihome.myxapp.paas.uniconfig.client.IUniConfigClient;
+import com.myunihome.myxapp.paas.util.CollectionUtil;
 import com.myunihome.myxapp.paas.util.StringUtil;
 /**
  * MyXApp-PaaS平台全局配置工具类
@@ -84,7 +91,7 @@ public final class MyXAppConfHelper {
     	if (StringUtil.isBlank(appId)) {
     		throw new PaasRuntimeException("uniconfig appId is null");
     	}
-    	return appDomain+"."+appId;
+    	return appDomain+"$"+appId;
     }
     /**
      * 配置中心类型.<br>
@@ -135,6 +142,27 @@ public final class MyXAppConfHelper {
      * @author gucl
      */
     public CacheConfigInfo getCacheConfig() {
+        return getCacheConfig(MyXAppPaaSConstant.DEFAULT);
+	}
+    public CacheConfigInfo getCacheConfig(String namespace) {
+    	Map<String,CacheConfigInfo> configMap=getCacheConfigMap();
+    	CacheConfigInfo config=configMap.get(namespace);
+        if (config==null) {
+            throw new PaasRuntimeException("cann't get paas cache configInfo because cacheConfig is null");
+        }
+        return config;
+		
+	}
+    public List<String> getCacheConfigMapNameSpaces(){
+    	Map<String,CacheConfigInfo> configMap=getCacheConfigMap();
+    	Set<String> keySet=configMap.keySet();
+    	List<String> namespaces=new ArrayList<String>();
+    	if(!CollectionUtil.isEmpty(keySet)){
+    		namespaces.addAll(keySet);
+    	}
+    	return namespaces;
+    }
+    public Map<String,CacheConfigInfo> getCacheConfigMap() {
     	IUniConfigClient uniConfigClient = UniConfigFactory.getUniConfigClient();
         if (uniConfigClient == null) {
             throw new PaasRuntimeException("cann't get paas cache configInfo because uniConfigClient is null");
@@ -143,11 +171,11 @@ public final class MyXAppConfHelper {
         if (StringUtil.isBlank(cacheConfig)) {
             throw new PaasRuntimeException("cann't get paas cache configInfo because cacheConfig in UniConfig is blank");
         }
-        CacheConfigInfo config=JSON.parseObject(cacheConfig, CacheConfigInfo.class);
-        if (config==null) {
+        Map<String,CacheConfigInfo> configMap=JSON.parseObject(cacheConfig, new TypeReference<Map<String,CacheConfigInfo>>(){});
+        if (configMap==null) {
             throw new PaasRuntimeException("cann't get paas cache configInfo because cacheConfig is null");
         }
-        return config;
+        return configMap;
 		
 	}
     /**
@@ -156,6 +184,27 @@ public final class MyXAppConfHelper {
      * @author gucl
      */
     public DocStoreConfigInfo getDocStoreConfig() {
+        return getDocStoreConfig(MyXAppPaaSConstant.DEFAULT);
+	}
+    public DocStoreConfigInfo getDocStoreConfig(String namespace) {
+    	Map<String,DocStoreConfigInfo> configMap=getDocStoreConfigMap();
+        DocStoreConfigInfo config=configMap.get(namespace);
+        if (config==null) {
+            throw new PaasRuntimeException("cann't get paas cache configInfo because dssConfig is null");
+        }
+        return config;
+		
+	}
+    public List<String> getDocStoreConfigMapNameSpaces(){
+    	Map<String,DocStoreConfigInfo> configMap=getDocStoreConfigMap();
+    	Set<String> keySet=configMap.keySet();
+    	List<String> namespaces=new ArrayList<String>();
+    	if(!CollectionUtil.isEmpty(keySet)){
+    		namespaces.addAll(keySet);
+    	}
+    	return namespaces;
+    }
+    public Map<String,DocStoreConfigInfo> getDocStoreConfigMap() {
     	IUniConfigClient uniConfigClient = UniConfigFactory.getUniConfigClient();
         if (uniConfigClient == null) {
             throw new PaasRuntimeException("cann't get paas cache configInfo because uniConfigClient is null");
@@ -164,11 +213,11 @@ public final class MyXAppConfHelper {
         if (StringUtil.isBlank(dssConfig)) {
             throw new PaasRuntimeException("cann't get paas cache configInfo because dssConfig in UniConfig is blank");
         }
-        DocStoreConfigInfo config=JSON.parseObject(dssConfig, DocStoreConfigInfo.class);
-        if (config==null) {
-            throw new PaasRuntimeException("cann't get paas cache configInfo because dssConfig is null");
+        Map<String,DocStoreConfigInfo> configMap=JSON.parseObject(dssConfig, new TypeReference<Map<String,DocStoreConfigInfo>>(){});
+        if (configMap==null) {
+            throw new PaasRuntimeException("cann't get paas cache configInfo because dssConfigMap is null");
         }
-        return config;
+        return configMap;
 		
 	}
     public HikariCPDataSourceConfig getHikariCPDataSourceConfig() {
