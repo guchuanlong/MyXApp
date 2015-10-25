@@ -43,7 +43,7 @@ subprojects {
     }
 
     dependencies {
-    	//compile "com.ai.runner:runner-base:${runnerBaseVersion}"
+    	//
     }
 
 }
