@@ -4,8 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 
-import com.myunihome.myxapp.base.dubbo.exception.BusinessException;
-import com.myunihome.myxapp.base.dubbo.exception.SystemException;
+import com.myunihome.myxapp.base.exception.BusinessException;
+import com.myunihome.myxapp.base.exception.SystemException;
 import com.myunihome.myxapp.utils.util.DubboExceptAssembler;
 
 public class DubboExceptionConvertInterceptor {

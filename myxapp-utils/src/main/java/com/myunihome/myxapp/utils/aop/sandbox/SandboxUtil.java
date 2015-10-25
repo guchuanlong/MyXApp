@@ -1,7 +1,7 @@
 package com.myunihome.myxapp.utils.aop.sandbox;
 
 import com.alibaba.fastjson.JSON;
-import com.myunihome.myxapp.base.dubbo.exception.SystemException;
+import com.myunihome.myxapp.base.exception.SystemException;
 import com.myunihome.myxapp.paas.uniconfig.UniConfigFactory;
 import com.myunihome.myxapp.paas.uniconfig.client.IUniConfigClient;
 import com.myunihome.myxapp.paas.util.StringUtil;
