@@ -7,6 +7,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.myunihome.myxapp.paas.MyXAppConfHelper;
+import com.myunihome.myxapp.paas.cache.CacheFactory;
+import com.myunihome.myxapp.paas.cache.client.ICacheClient;
 import com.myunihome.myxapp.paas.constants.MyXAppPaaSConstant;
 import com.myunihome.myxapp.paas.docstore.client.IDocStoreClient;
 import com.myunihome.myxapp.paas.docstore.client.impl.DocStoreClient;
@@ -41,15 +43,22 @@ public final class DocStoreFactory {
           docStoreClient = (IDocStoreClient)docStoreClients.get(docStoreKey);
           return docStoreClient;
         }
+        ICacheClient cacheClient=null;
+        if(StringUtil.isBlank(config.getCacheNameSpace())){
+        	cacheClient=CacheFactory.getCacheClient();
+        }
+        else{
+        	cacheClient=CacheFactory.getCacheClient(config.getCacheNameSpace());
+        }
         docStoreClient = new DocStoreClient(
         		config.getMongoDBHostAndPorts(),
         		config.getMongoDBDataBaseName(), 
         		config.getMongoDBUserName(),
-        		config.getMongoDBPassword(), 
-        		config.getRedisHostAndPorts(),
+        		config.getMongoDBPassword(),         		
         		config.getMongoDBGridFSBucket(),
         		config.getMongoDBGridFSMaxSize(),
-        		config.getMongoDBGridFSFileLimitSize());
+        		config.getMongoDBGridFSFileLimitSize(),
+        		cacheClient);
         docStoreClients.put(docStoreKey, docStoreClient);
         return docStoreClient;
     }

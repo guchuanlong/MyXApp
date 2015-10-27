@@ -41,8 +41,8 @@ public class CacheConfigTest {
 		sb.append("\"default\":");
 		sb.append("  {");
 		sb.append("	    \"jedisPoolConfig\":{\"maxTotal\":\"500\",\"maxIdle\":\"5\",\"maxWaitMillis\":\"10000\",\"testOnBorrow\":\"true\"},");
-//		sb.append("     \"jedisHostAndPorts\":\"192.168.0.10:6379\",");
-		sb.append("     \"jedisHostAndPorts\":\"192.168.0.10:7001,192.168.0.10:7002,192.168.0.10:7003,192.168.0.10:7004,192.168.0.10:7005,192.168.0.10:7006\",");
+		sb.append("     \"jedisHostAndPorts\":\"192.168.0.10:6379\",");
+//		sb.append("     \"jedisHostAndPorts\":\"192.168.0.10:7001,192.168.0.10:7002,192.168.0.10:7003,192.168.0.10:7004,192.168.0.10:7005,192.168.0.10:7006\",");
 		sb.append(" 	\"password\":\"123456\" ");
 		sb.append("	 }");
 		sb.append("}");

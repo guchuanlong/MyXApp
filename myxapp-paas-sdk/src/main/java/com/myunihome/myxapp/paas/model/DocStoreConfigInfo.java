@@ -8,26 +8,26 @@ public class DocStoreConfigInfo implements Serializable{
 	private String mongoDBDataBaseName;//数据库名称
     private String mongoDBUserName;//用户名
 	private String mongoDBPassword;//密码
-	private String redisHostAndPorts;//Redis集群，示例：192.168.0.21:6379,192.168.0.22:6379,192.168.0.23:6379
 	private String mongoDBGridFSBucket;//GridFS下的集合名称，默认为fs
 	private double mongoDBGridFSFileLimitSize;// GridFS单个文件大小限制 单位M
 	private double mongoDBGridFSMaxSize;//GridFS最大存储量 单位M
+	private String cacheNameSpace;//缓存名称空间，即缓存中心的标识
 	public DocStoreConfigInfo() {
 		super();
 	}
 	
 	public DocStoreConfigInfo(String mongoDBHostAndPorts, String mongoDBDataBaseName, String mongoDBUserName,
-			String mongoDBPassword, String redisHostAndPorts, String mongoDBGridFSBucket,
-			double mongoDBGridFSFileLimitSize, double mongoDBGridFSMaxSize) {
+			String mongoDBPassword, String mongoDBGridFSBucket,double mongoDBGridFSFileLimitSize, 
+			double mongoDBGridFSMaxSize,String cacheNameSpace) {
 		super();
 		this.mongoDBHostAndPorts = mongoDBHostAndPorts;
 		this.mongoDBDataBaseName = mongoDBDataBaseName;
 		this.mongoDBUserName = mongoDBUserName;
 		this.mongoDBPassword = mongoDBPassword;
-		this.redisHostAndPorts = redisHostAndPorts;
 		this.mongoDBGridFSBucket = mongoDBGridFSBucket;
 		this.mongoDBGridFSFileLimitSize = mongoDBGridFSFileLimitSize;
 		this.mongoDBGridFSMaxSize = mongoDBGridFSMaxSize;
+		this.cacheNameSpace=cacheNameSpace;
 	}
 
 	public String getMongoDBHostAndPorts() {
@@ -55,12 +55,6 @@ public class DocStoreConfigInfo implements Serializable{
 	public void setMongoDBPassword(String mongoDBPassword) {
 		this.mongoDBPassword = mongoDBPassword;
 	}
-	public String getRedisHostAndPorts() {
-		return redisHostAndPorts;
-	}
-	public void setRedisHostAndPorts(String redisHostAndPorts) {
-		this.redisHostAndPorts = redisHostAndPorts;
-	}
 	public String getMongoDBGridFSBucket() {
 		return mongoDBGridFSBucket;
 	}
@@ -78,6 +72,14 @@ public class DocStoreConfigInfo implements Serializable{
 	}
 	public void setMongoDBGridFSMaxSize(double mongoDBGridFSMaxSize) {
 		this.mongoDBGridFSMaxSize = mongoDBGridFSMaxSize;
+	}
+
+	public String getCacheNameSpace() {
+		return cacheNameSpace;
+	}
+
+	public void setCacheNameSpace(String cacheNameSpace) {
+		this.cacheNameSpace = cacheNameSpace;
 	}
 	
 }

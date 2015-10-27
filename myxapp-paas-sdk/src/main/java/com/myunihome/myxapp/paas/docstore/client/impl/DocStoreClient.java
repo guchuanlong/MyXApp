@@ -17,6 +17,7 @@ import com.mongodb.MongoCredential;
 import com.mongodb.gridfs.GridFS;
 import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSInputFile;
+import com.myunihome.myxapp.paas.cache.client.ICacheClient;
 import com.myunihome.myxapp.paas.docstore.client.IDocStoreClient;
 import com.myunihome.myxapp.paas.docstore.exception.DocStoreRuntimeException;
 
@@ -31,10 +32,28 @@ public class DocStoreClient implements IDocStoreClient{
   private static String gridFSBucket;
   private static double gridFSMaxSize;
   private static double fileLimitSize;
-  private static JedisCluster jedisCluster;
+//  private static JedisCluster jedisCluster;//redis集群客户端
   private static String redisKey;
+  private static ICacheClient cacheClient;//缓存客户端
 
+  
   @SuppressWarnings("deprecation")
+  public DocStoreClient(String mongoHostAndPorts, String mongoDataBaseName, String mongoUserName, String mongoPassword, String mongoGridFSBucket,double mongoGridFSMaxSize,double mongoGridFSFileLimitSize,ICacheClient redisCacheClient)
+  {
+    MongoCredential credential = MongoCredential.createCredential(mongoUserName, mongoDataBaseName, mongoPassword.toCharArray());
+
+    this.mongoClient = new MongoClient(DocStoreHelper.Str2ServerAddressList(mongoHostAndPorts), Arrays.asList(new MongoCredential[] { credential }));
+
+    this.db = this.mongoClient.getDB(mongoDataBaseName);
+    gridFSBucket = mongoGridFSBucket;
+    fileLimitSize = mongoGridFSFileLimitSize;
+    gridFSMaxSize = mongoGridFSMaxSize;
+    redisKey = mongoDataBaseName + mongoGridFSBucket;
+    cacheClient=redisCacheClient;
+  }
+  
+  
+/*  @SuppressWarnings("deprecation")
 public DocStoreClient(String mongoHostAndPorts, String mongoDataBaseName, String mongoUserName, String mongoPassword, String redisHostAndPorts, String mongoGridFSBucket,double mongoGridFSMaxSize,double mongoGridFSFileLimitSize)
   {
     MongoCredential credential = MongoCredential.createCredential(mongoUserName, mongoDataBaseName, mongoPassword.toCharArray());
@@ -45,13 +64,13 @@ public DocStoreClient(String mongoHostAndPorts, String mongoDataBaseName, String
     gridFSBucket = mongoGridFSBucket;
     fileLimitSize = mongoGridFSFileLimitSize;
     gridFSMaxSize = mongoGridFSMaxSize;
-    jedisCluster = DocStoreHelper.getRedis(redisHostAndPorts);
+//    jedisCluster = DocStoreHelper.getRedis(redisHostAndPorts);
     redisKey = mongoDataBaseName + mongoGridFSBucket;
-  }
-
+  }*/
+  
   public String save(File file, String remark)
   {
-    long usedSize = jedisCluster.incrBy(redisKey, 0L).longValue();
+    long usedSize = cacheClient.incrBy(redisKey, 0L).longValue();
     if (DocStoreHelper.okSize(DocStoreHelper.M2byte(fileLimitSize), DocStoreHelper.getFileSize(file)) < 0L)
     {
       log.error("file too large");
@@ -72,7 +91,7 @@ public DocStoreClient(String mongoHostAndPorts, String mongoDataBaseName, String
       dbFile.setMetaData(dbo);
       dbFile.setContentType(fileType);
       dbFile.save();
-      jedisCluster.incrBy(redisKey, Integer.parseInt(DocStoreHelper.getFileSize(file) + ""));
+      cacheClient.incrBy(redisKey, Integer.parseInt(DocStoreHelper.getFileSize(file) + ""));
 
       return dbFile.getId().toString();
     } catch (Exception e) {
@@ -87,7 +106,7 @@ public DocStoreClient(String mongoHostAndPorts, String mongoDataBaseName, String
       log.error("bytes illegal");
       throw new DocStoreRuntimeException(new Exception("bytes illegal"));
     }
-    long usedSize = jedisCluster.incrBy(redisKey, 0L).longValue();
+    long usedSize = cacheClient.incrBy(redisKey, 0L).longValue();
     if (DocStoreHelper.okSize(DocStoreHelper.M2byte(fileLimitSize), DocStoreHelper.getFileSize(bytes)) < 0L)
     {
       log.error("file too large");
@@ -106,7 +125,7 @@ public DocStoreClient(String mongoHostAndPorts, String mongoDataBaseName, String
       dbo.put(REMARK, remark);
       dbFile.setMetaData(dbo);
       dbFile.save();
-      jedisCluster.incrBy(redisKey, Integer.parseInt(DocStoreHelper.getFileSize(bytes) + ""));
+      cacheClient.incrBy(redisKey, Integer.parseInt(DocStoreHelper.getFileSize(bytes) + ""));
 
       return dbFile.getId().toString();
     } catch (Exception e) {
@@ -146,13 +165,13 @@ public DocStoreClient(String mongoHostAndPorts, String mongoDataBaseName, String
       return false;
     }
     fs.remove(dbFile);
-    jedisCluster.decrBy(redisKey, Integer.parseInt(dbFile.getLength() + ""));
+    cacheClient.decrBy(redisKey, Integer.parseInt(dbFile.getLength() + ""));
     return true;
   }
 
   public void update(String id, byte[] bytes)
   {
-    long usedSize = jedisCluster.incrBy(redisKey, 0L).longValue();
+    long usedSize = cacheClient.incrBy(redisKey, 0L).longValue();
     if ((bytes == null) || (id == null) || ("".equals(id))) {
       log.error("id or bytes illegal");
       throw new DocStoreRuntimeException(new Exception("id or bytes illegal"));
@@ -170,7 +189,7 @@ public DocStoreClient(String mongoHostAndPorts, String mongoDataBaseName, String
     }
     String fileName = dbFile.getFilename();
     String fileType = dbFile.getContentType();
-    usedSize = jedisCluster.decrBy(redisKey, Integer.parseInt(dbFile.getLength() + "")).longValue();
+    usedSize = cacheClient.decrBy(redisKey, Integer.parseInt(dbFile.getLength() + "")).longValue();
 
     if (DocStoreHelper.okSize(DocStoreHelper.okSize(DocStoreHelper.M2byte(gridFSMaxSize), usedSize), DocStoreHelper.getFileSize(bytes)) < 0L)
     {
@@ -184,7 +203,7 @@ public DocStoreClient(String mongoHostAndPorts, String mongoDataBaseName, String
     file.setFilename(fileName);
     file.put(FILE_NAME, fileName);
     file.save();
-    jedisCluster.incrBy(redisKey, Integer.parseInt(DocStoreHelper.getFileSize(bytes) + ""));
+    cacheClient.incrBy(redisKey, Integer.parseInt(DocStoreHelper.getFileSize(bytes) + ""));
   }
 
   public Date getLastUpdateTime(String id)
@@ -204,7 +223,7 @@ public DocStoreClient(String mongoHostAndPorts, String mongoDataBaseName, String
 
   public void update(String id, File file)
   {
-    long usedSize = jedisCluster.incrBy(redisKey, 0L).longValue();
+    long usedSize = cacheClient.incrBy(redisKey, 0L).longValue();
     if ((file == null) || (id == null) || ("".equals(id))) {
       log.error("id or file illegal");
       throw new DocStoreRuntimeException(new Exception("id or file illegal"));
@@ -227,7 +246,7 @@ public DocStoreClient(String mongoHostAndPorts, String mongoDataBaseName, String
       log.error("left size not enough");//剩余空间不够
       throw new DocStoreRuntimeException(new Exception("left size not enough"));
     }
-    usedSize = jedisCluster.decrBy(redisKey, Integer.parseInt(dbFile.getLength() + "")).longValue();
+    usedSize = cacheClient.decrBy(redisKey, Integer.parseInt(dbFile.getLength() + "")).longValue();
 
     fs.remove(dbFile);
     GridFSInputFile fsfile = null;
@@ -242,7 +261,7 @@ public DocStoreClient(String mongoHostAndPorts, String mongoDataBaseName, String
     fsfile.setFilename(fileName);
     fsfile.put(FILE_NAME, fileName);
     fsfile.save();
-    jedisCluster.incrBy(redisKey, Integer.parseInt(DocStoreHelper.getFileSize(file) + ""));
+    cacheClient.incrBy(redisKey, Integer.parseInt(DocStoreHelper.getFileSize(file) + ""));
   }
 
 }

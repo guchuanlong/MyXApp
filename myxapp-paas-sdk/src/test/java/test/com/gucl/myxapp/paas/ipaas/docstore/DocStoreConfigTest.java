@@ -21,10 +21,10 @@ public class DocStoreConfigTest {
 		sb.append("	  \"mongoDBDataBaseName\":\"foobar\", ");
 		sb.append("   \"mongoDBUserName\":\"foobaruser\",");
 		sb.append("	  \"mongoDBPassword\":\"foobaruser\",");
-		sb.append("   \"redisHostAndPorts\":\"192.168.0.10:6379\",");
 		sb.append("	  \"mongoDBGridFSBucket\":\"mygridfs01\",");
 		sb.append("   \"mongoDBGridFSFileLimitSize\":\"1024\",");
-		sb.append("	  \"mongoDBGridFSMaxSize\":\"1\" ");
+		sb.append("	  \"mongoDBGridFSMaxSize\":\"1\", ");
+		sb.append("	  \"cacheNameSpace\":\"default\" ");
 		sb.append("  }");
 		sb.append("}");
 		String data=sb.toString();
@@ -49,10 +49,10 @@ public class DocStoreConfigTest {
 		sb.append("	  \"mongoDBDataBaseName\":\"foobar\", ");
 		sb.append("   \"mongoDBUserName\":\"foobaruser\",");
 		sb.append("	  \"mongoDBPassword\":\"foobaruser\",");
-		sb.append("   \"redisHostAndPorts\":\"192.168.0.10:7001,192.168.0.10:7002,192.168.0.10:7003,192.168.0.10:7004,192.168.0.10:7005,192.168.0.10:7006\",");
 		sb.append("	  \"mongoDBGridFSBucket\":\"mygridfs01\",");
 		sb.append("   \"mongoDBGridFSFileLimitSize\":\"2048\",");
-		sb.append("	  \"mongoDBGridFSMaxSize\":\"2\" ");
+		sb.append("	  \"mongoDBGridFSMaxSize\":\"2\", ");
+		sb.append("	  \"cacheNameSpace\":\"default\" ");
 		sb.append("  }");
 		sb.append("}");
 		String data=sb.toString();
