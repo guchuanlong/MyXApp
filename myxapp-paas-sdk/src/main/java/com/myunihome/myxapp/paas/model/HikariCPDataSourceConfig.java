@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class HikariCPDataSourceConfig implements Serializable{
 	private static final long serialVersionUID = -3664929924801784994L;
-	private String dataSourceName="HikariCP";//数据源类型HikariCP|Druid|DBCP|C3P0
 	/* 数据库驱动名称
 	 * ORACLE :oracle.jdbc.driver.OracleDriver
 	 * MYSQL :com.mysql.jdbc.Driver
@@ -27,14 +26,6 @@ public class HikariCPDataSourceConfig implements Serializable{
 		super();
 	}
 	
-	public String getDataSourceName() {
-		return dataSourceName;
-	}
-
-	public void setDataSourceName(String dataSourceName) {
-		this.dataSourceName = dataSourceName;
-	}
-
 	public String getDriverClassName() {
 		return driverClassName;
 	}

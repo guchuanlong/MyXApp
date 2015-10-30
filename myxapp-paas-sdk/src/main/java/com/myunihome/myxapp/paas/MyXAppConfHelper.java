@@ -190,7 +190,7 @@ public final class MyXAppConfHelper {
     	Map<String,DocStoreConfigInfo> configMap=getDocStoreConfigMap();
         DocStoreConfigInfo config=configMap.get(namespace);
         if (config==null) {
-            throw new PaasRuntimeException("cann't get paas cache configInfo because dssConfig is null");
+            throw new PaasRuntimeException("cann't get paas docstore configInfo because dssConfig is null");
         }
         return config;
 		
@@ -220,7 +220,91 @@ public final class MyXAppConfHelper {
         return configMap;
 		
 	}
-    public HikariCPDataSourceConfig getHikariCPDataSourceConfig() {
+    
+    public HikariCPDataSourceConfig getHikariCPDataSourceConfig(){
+    	return getHikariCPDataSourceConfig(MyXAppPaaSConstant.DEFAULT);
+    }
+    public DruidDataSourceConfig getDruidDataSourceConfig(){
+    	return getDruidDataSourceConfig(MyXAppPaaSConstant.DEFAULT);
+    }
+    public DBCPDataSourceConfig getDBCPDataSourceConfig(){
+    	return getDBCPDataSourceConfig(MyXAppPaaSConstant.DEFAULT);
+    }
+    public C3P0DataSourceConfig getC3P0DataSourceConfig(){
+    	return getC3P0DataSourceConfig(MyXAppPaaSConstant.DEFAULT);
+    }
+    
+    public HikariCPDataSourceConfig getHikariCPDataSourceConfig(String dataSourceName){
+    	Map<String,HikariCPDataSourceConfig> configMap=getHikariCPDataSourceConfigMap();
+    	HikariCPDataSourceConfig config=configMap.get(dataSourceName);
+        if (config==null) {
+            throw new PaasRuntimeException("cann't get paas datasource configInfo because config is null");
+        }
+        return config;
+    }
+    public DruidDataSourceConfig getDruidDataSourceConfig(String dataSourceName){
+    	Map<String,DruidDataSourceConfig> configMap=getDruidDataSourceConfigMap();
+    	DruidDataSourceConfig config=configMap.get(dataSourceName);
+        if (config==null) {
+            throw new PaasRuntimeException("cann't get paas datasource configInfo because config is null");
+        }
+        return config;
+    }
+    public DBCPDataSourceConfig getDBCPDataSourceConfig(String dataSourceName){
+    	Map<String,DBCPDataSourceConfig> configMap=getDBCPDataSourceConfigMap();
+    	DBCPDataSourceConfig config=configMap.get(dataSourceName);
+        if (config==null) {
+            throw new PaasRuntimeException("cann't get paas datasource configInfo because config is null");
+        }
+        return config;
+    }
+    public C3P0DataSourceConfig getC3P0DataSourceConfig(String dataSourceName){
+    	Map<String,C3P0DataSourceConfig> configMap=getC3P0DataSourceConfigMap();
+    	C3P0DataSourceConfig config=configMap.get(dataSourceName);
+        if (config==null) {
+            throw new PaasRuntimeException("cann't get paas datasource configInfo because config is null");
+        }
+        return config;
+    }
+
+    public List<String> getHikariCPDataSourceNames(){
+    	Map<String,HikariCPDataSourceConfig> configMap=getHikariCPDataSourceConfigMap();
+    	Set<String> keySet=configMap.keySet();
+    	List<String> dataSourceNames=new ArrayList<String>();
+    	if(!CollectionUtil.isEmpty(keySet)){    		
+    		dataSourceNames.addAll(keySet);
+    	}
+    	return dataSourceNames;
+    }
+    public List<String> getDruidDataSourceNames(){
+    	Map<String,DruidDataSourceConfig> configMap=getDruidDataSourceConfigMap();
+    	Set<String> keySet=configMap.keySet();
+    	List<String> dataSourceNames=new ArrayList<String>();
+    	if(!CollectionUtil.isEmpty(keySet)){    		
+    		dataSourceNames.addAll(keySet);
+    	}
+    	return dataSourceNames;
+    }
+    public List<String> getDBCPDataSourceNames(){
+    	Map<String,DBCPDataSourceConfig> configMap=getDBCPDataSourceConfigMap();
+    	Set<String> keySet=configMap.keySet();
+    	List<String> dataSourceNames=new ArrayList<String>();
+    	if(!CollectionUtil.isEmpty(keySet)){    		
+    		dataSourceNames.addAll(keySet);
+    	}
+    	return dataSourceNames;
+    }
+    public List<String> getC3P0DataSourceNames(){
+    	Map<String,C3P0DataSourceConfig> configMap=getC3P0DataSourceConfigMap();
+    	Set<String> keySet=configMap.keySet();
+    	List<String> dataSourceNames=new ArrayList<String>();
+    	if(!CollectionUtil.isEmpty(keySet)){    		
+    		dataSourceNames.addAll(keySet);
+    	}
+    	return dataSourceNames;
+    }
+    
+    public Map<String,HikariCPDataSourceConfig> getHikariCPDataSourceConfigMap() {
     	IUniConfigClient uniConfigClient = UniConfigFactory.getUniConfigClient();
         if (uniConfigClient == null) {
             throw new PaasRuntimeException("cann't get paas cache configInfo because uniConfigClient is null");
@@ -229,13 +313,13 @@ public final class MyXAppConfHelper {
         if (StringUtil.isBlank(dsConfig)) {
             throw new PaasRuntimeException("cann't get paas cache configInfo because datasoure HikariCP Config in UniConfig is blank");
         }
-        HikariCPDataSourceConfig config=JSON.parseObject(dsConfig, HikariCPDataSourceConfig.class);
-        if (config==null) {
+        Map<String,HikariCPDataSourceConfig> configMap=JSON.parseObject(dsConfig, new TypeReference<Map<String,HikariCPDataSourceConfig>>(){});
+        if (configMap==null) {
             throw new PaasRuntimeException("cann't get paas cache configInfo because datasoure HikariCP is null");
         }
-        return config;		
+        return configMap;		
 	}
-    public DruidDataSourceConfig getDruidDataSourceConfig() {
+    public Map<String,DruidDataSourceConfig> getDruidDataSourceConfigMap() {
     	IUniConfigClient uniConfigClient = UniConfigFactory.getUniConfigClient();
         if (uniConfigClient == null) {
             throw new PaasRuntimeException("cann't get paas cache configInfo because uniConfigClient is null");
@@ -244,13 +328,13 @@ public final class MyXAppConfHelper {
         if (StringUtil.isBlank(dsConfig)) {
             throw new PaasRuntimeException("cann't get paas cache configInfo because datasoure Druid Config in UniConfig is blank");
         }
-        DruidDataSourceConfig config=JSON.parseObject(dsConfig, DruidDataSourceConfig.class);
-        if (config==null) {
+        Map<String,DruidDataSourceConfig> configMap=JSON.parseObject(dsConfig, new TypeReference<Map<String,DruidDataSourceConfig>>(){});
+        if (configMap==null) {
             throw new PaasRuntimeException("cann't get paas cache configInfo because datasoure Druid is null");
         }
-        return config;		
+        return configMap;		
 	}
-    public DBCPDataSourceConfig getDBCPDataSourceConfig() {
+    public Map<String,DBCPDataSourceConfig> getDBCPDataSourceConfigMap() {
     	IUniConfigClient uniConfigClient = UniConfigFactory.getUniConfigClient();
         if (uniConfigClient == null) {
             throw new PaasRuntimeException("cann't get paas cache configInfo because uniConfigClient is null");
@@ -259,13 +343,13 @@ public final class MyXAppConfHelper {
         if (StringUtil.isBlank(dsConfig)) {
             throw new PaasRuntimeException("cann't get paas cache configInfo because datasoure DBCP Config in UniConfig is blank");
         }
-        DBCPDataSourceConfig config=JSON.parseObject(dsConfig, DBCPDataSourceConfig.class);
-        if (config==null) {
+        Map<String,DBCPDataSourceConfig> configMap=JSON.parseObject(dsConfig, new TypeReference<Map<String,DBCPDataSourceConfig>>(){});
+        if (configMap==null) {
             throw new PaasRuntimeException("cann't get paas cache configInfo because datasoure DBCP is null");
         }
-        return config;		
+        return configMap;		
 	}
-    public C3P0DataSourceConfig getC3P0DataSourceConfig() {
+    public Map<String,C3P0DataSourceConfig> getC3P0DataSourceConfigMap() {
     	IUniConfigClient uniConfigClient = UniConfigFactory.getUniConfigClient();
         if (uniConfigClient == null) {
             throw new PaasRuntimeException("cann't get paas cache configInfo because uniConfigClient is null");
@@ -274,13 +358,13 @@ public final class MyXAppConfHelper {
         if (StringUtil.isBlank(dsConfig)) {
             throw new PaasRuntimeException("cann't get paas cache configInfo because datasoure C3P0 Config in UniConfig is blank");
         }
-        C3P0DataSourceConfig config=JSON.parseObject(dsConfig, C3P0DataSourceConfig.class);
-        if (config==null) {
+        Map<String,C3P0DataSourceConfig> configMap=JSON.parseObject(dsConfig, new TypeReference<Map<String,C3P0DataSourceConfig>>(){});
+        if (configMap==null) {
             throw new PaasRuntimeException("cann't get paas cache configInfo because datasoure C3P0 is null");
         }
-        return config;		
+        return configMap;		
 	}
-    
+
     /*public String getCacheType() {
         String type = prop.getProperty("paas.cache.type");
         if (StringUtil.isBlank(type)) {

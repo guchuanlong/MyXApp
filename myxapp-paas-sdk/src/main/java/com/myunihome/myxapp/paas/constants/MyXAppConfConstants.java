@@ -116,22 +116,41 @@ public final class MyXAppConfConstants {
      * HikariCP数据源配置信息<br/>
      * <p/>
      * 
-     * 示例数据：
-     * {
-     * 		"dataSourceName":"HikariCP|Druid|DBCP|C3p0",
-     * 		"driverClassName":"com.mysql.jdbc.Driver",
-     * 		"jdbcUrl":"jdbc:mysql://10.1.228.222:39306/devrunnerospdb1?useUnicode=true&characterEncoding=UTF-8",
-     * 		"username":"devrunnerospusr1",
-     * 		"password":"devrunnerospusr1",
-     * 		"autoCommit":"true",
-     * 		"connectionTimeout":"30000",
-     * 		"idleTimeout":"600000",
-     * 		"maxLifetime":"1800000",
-     * 		"minimumIdle":"1",
-     * 		"maximumPoolSize":"100",
+     * HikariCP示例数据：
+     * {	
+     *      "default":
+     * 		{
+     * 			"driverClassName":"com.mysql.jdbc.Driver",
+     * 			"jdbcUrl":"jdbc:mysql://10.1.228.222:39306/devrunnerospdb1?useUnicode=true&characterEncoding=UTF-8",
+     * 			"username":"devrunnerospusr1",
+     * 			"password":"devrunnerospusr1",
+     * 			"autoCommit":"true",
+     * 			"connectionTimeout":"30000",
+     * 			"idleTimeout":"600000",
+     * 			"maxLifetime":"1800000",
+     * 			"minimumIdle":"1",
+     * 			"maximumPoolSize":"100",
      * 
-     * 		"sequenceTable":"sys_sequences"
-     * } 
+     * 			"sequenceTable":"sys_sequences"
+     * 
+     * 		},
+     *      "sso-db":
+     * 		{
+     * 			"driverClassName":"com.mysql.jdbc.Driver",
+     * 			"jdbcUrl":"jdbc:mysql://10.1.228.222:39306/devrunnerospdb1?useUnicode=true&characterEncoding=UTF-8",
+     * 			"username":"devrunnerospusr1",
+     * 			"password":"devrunnerospusr1",
+     * 			"autoCommit":"true",
+     * 			"connectionTimeout":"30000",
+     * 			"idleTimeout":"600000",
+     * 			"maxLifetime":"1800000",
+     * 			"minimumIdle":"1",
+     * 			"maximumPoolSize":"100",
+     * 
+     * 			"sequenceTable":"sys_sequences"
+     * 
+     * 		} 
+     * }
      */
     public static final String PAAS_DATASOURCE_HIKARICP_CONFIG_PATH = "/datasource/hikaricp/config";
     
@@ -139,31 +158,57 @@ public final class MyXAppConfConstants {
      * Druid数据源配置信息<br/>
      * <p/>
      * 
-     * 示例数据：
+     * Druid示例数据：
      * {
-     * 		"dataSourceName":"Druid",
-     * 		"driverClassName":"com.mysql.jdbc.Driver",
-     * 		"url":"jdbc:mysql://10.1.228.222:39306/devrunnerospdb1?useUnicode=true&characterEncoding=UTF-8",
-     * 		"username":"devrunnerospusr1",
-     * 		"password":"devrunnerospusr1",
-     *      "filters":"stat",
-     * 		"initialSize":"1",
-     * 		"maxActive":"100",
-     * 		"minIdle":"0",
-     * 		"maxWait":"1000",
+     * 		"default":
+     * 		{
+     * 			"driverClassName":"com.mysql.jdbc.Driver",
+     * 			"url":"jdbc:mysql://10.1.228.222:39306/devrunnerospdb1?useUnicode=true&characterEncoding=UTF-8",
+     * 			"username":"devrunnerospusr1",
+     * 			"password":"devrunnerospusr1",
+     *      	"filters":"stat",
+     * 			"initialSize":"1",
+     * 			"maxActive":"100",
+     * 			"minIdle":"0",
+     * 			"maxWait":"1000",
      * 
-     * 		"testWhileIdle":"true",
-     * 		"testOnBorrow":"false",
-     * 		"testOnReturn":"false",
-     * 		"validationQuery":"select 1",
-     * 		"timeBetweenEvictionRunsMillis":"3000",
-     * 		"minEvictableIdleTimeMillis":"3600000",
+     * 			"testWhileIdle":"true",
+     * 			"testOnBorrow":"false",
+     * 			"testOnReturn":"false",
+     * 			"validationQuery":"select 1",
+     * 			"timeBetweenEvictionRunsMillis":"3000",
+     * 			"minEvictableIdleTimeMillis":"3600000",
      * 
-     * 		"poolPreparedStatements":"true",
-     * 		"maxPoolPreparedStatementPerConnectionSize":"50",
+     * 			"poolPreparedStatements":"true",
+     * 			"maxPoolPreparedStatementPerConnectionSize":"50",
      * 
-     * 		"sequenceTable":"sys_sequences"
-     * } 
+     * 			"sequenceTable":"sys_sequences"
+     * 		} ,
+     *      "sso-db":
+     * 		{
+     * 			"driverClassName":"com.mysql.jdbc.Driver",
+     * 			"url":"jdbc:mysql://10.1.228.222:39306/devrunnerospdb1?useUnicode=true&characterEncoding=UTF-8",
+     * 			"username":"devrunnerospusr1",
+     * 			"password":"devrunnerospusr1",
+     *      	"filters":"stat",
+     * 			"initialSize":"1",
+     * 			"maxActive":"100",
+     * 			"minIdle":"0",
+     * 			"maxWait":"1000",
+     * 
+     * 			"testWhileIdle":"true",
+     * 			"testOnBorrow":"false",
+     * 			"testOnReturn":"false",
+     * 			"validationQuery":"select 1",
+     * 			"timeBetweenEvictionRunsMillis":"3000",
+     * 			"minEvictableIdleTimeMillis":"3600000",
+     * 
+     * 			"poolPreparedStatements":"true",
+     * 			"maxPoolPreparedStatementPerConnectionSize":"50",
+     * 
+     * 			"sequenceTable":"sys_sequences"    
+     * 		} 
+     * }
      */
     public static final String PAAS_DATASOURCE_DRUID_CONFIG_PATH = "/datasource/druid/config";
     
@@ -171,32 +216,59 @@ public final class MyXAppConfConstants {
      * DBCP数据源配置信息<br/>
      * <p/>
      * 
-     * 示例数据：
+     * DBCP示例数据：
      * {
-     * 		"dataSourceName":"DBCP",
-     * 		"driverClassName":"com.mysql.jdbc.Driver",
-     * 		"url":"jdbc:mysql://10.1.228.222:39306/devrunnerospdb1?useUnicode=true&characterEncoding=UTF-8",
-     * 		"username":"devrunnerospusr1",
-     * 		"password":"devrunnerospusr1",
-     * 		"initialSize":"1",
-     * 		"maxActive":"100",
-     * 		"maxIdle":"1",
-     * 		"minIdle":"0",
-     * 		"maxWait":"1000",
-     * 		"defaultAutoCommit":"true",
-     * 		"connectionProperties":"useUnicode=true;characterEncoding=UTF-8",
-     * 		"testWhileIdle":"true",
-     * 		"testOnBorrow":"false",
-     * 		"testOnReturn":"false",
-     * 		"validationQuery":"select 1",
-     * 		"timeBetweenEvictionRunsMillis":"3000",
-     * 		"numTestsPerEvictionRun":"100",
-     * 		"removeAbandoned":"true",
-     * 		"removeAbandonedTimeout":"1",
-     * 		"logAbandoned":"true",
+     * 		"default":
+     * 		{
+     * 			"driverClassName":"com.mysql.jdbc.Driver",
+     * 			"url":"jdbc:mysql://10.1.228.222:39306/devrunnerospdb1?useUnicode=true&characterEncoding=UTF-8",
+     * 			"username":"devrunnerospusr1",
+     * 			"password":"devrunnerospusr1",
+     * 			"initialSize":"1",
+     * 			"maxActive":"100",
+     * 			"maxIdle":"1",
+     * 			"minIdle":"0",
+     * 			"maxWait":"1000",
+     * 			"defaultAutoCommit":"true",
+     * 			"connectionProperties":"useUnicode=true;characterEncoding=UTF-8",
+     * 			"testWhileIdle":"true",
+     * 			"testOnBorrow":"false",
+     * 			"testOnReturn":"false",
+     * 			"validationQuery":"select 1",
+     * 			"timeBetweenEvictionRunsMillis":"3000",
+     * 			"numTestsPerEvictionRun":"100",
+     * 			"removeAbandoned":"true",
+     * 			"removeAbandonedTimeout":"1",
+     * 			"logAbandoned":"true",
      * 
-     * 		"sequenceTable":"sys_sequences"
-     * } 
+     * 			"sequenceTable":"sys_sequences"
+     * 		},
+     *      "sso-db":
+     * 		{
+     * 			"driverClassName":"com.mysql.jdbc.Driver",
+     * 			"url":"jdbc:mysql://10.1.228.222:39306/devrunnerospdb1?useUnicode=true&characterEncoding=UTF-8",
+     * 			"username":"devrunnerospusr1",
+     * 			"password":"devrunnerospusr1",
+     * 			"initialSize":"1",
+     * 			"maxActive":"100",
+     * 			"maxIdle":"1",
+     * 			"minIdle":"0",
+     * 			"maxWait":"1000",
+     * 			"defaultAutoCommit":"true",
+     * 			"connectionProperties":"useUnicode=true;characterEncoding=UTF-8",
+     * 			"testWhileIdle":"true",
+     * 			"testOnBorrow":"false",
+     * 			"testOnReturn":"false",
+     * 			"validationQuery":"select 1",
+     * 			"timeBetweenEvictionRunsMillis":"3000",
+     * 			"numTestsPerEvictionRun":"100",
+     * 			"removeAbandoned":"true",
+     * 			"removeAbandonedTimeout":"1",
+     * 			"logAbandoned":"true",
+     * 
+     * 			"sequenceTable":"sys_sequences"
+     * 		} 
+     * }
      */
     public static final String PAAS_DATASOURCE_DBCP_CONFIG_PATH = "/datasource/dbcp/config";
     
@@ -204,27 +276,47 @@ public final class MyXAppConfConstants {
      * C3P0数据源配置信息<br/>
      * <p/>
      * 
-     * 示例数据：
+     * C3P0示例数据：
      * {
-     * 		"dataSourceName":"C3P0",
-     * 		"driverClass":"com.mysql.jdbc.Driver",
-     * 		"jdbcUrl":"jdbc:mysql://10.1.228.222:39306/devrunnerospdb1?useUnicode=true&characterEncoding=UTF-8",
-     * 		"user":"devrunnerospusr1",
-     * 		"password":"devrunnerospusr1",
-     * 		"minPoolSize":"1",
-     * 		"maxPoolSize":"100",
-     * 		"initialPoolSize":"1",
-     * 		"maxIdleTime":"1",
-     * 		"acquireIncrement":"1",
-     * 		"acquireRetryAttempts":"30",
-     * 		"acquireRetryDelay":"1000",
-     * 		"testConnectionOnCheckin":"true",
-     * 		"automaticTestTable":"c3p0TestTable",
-     * 		"idleConnectionTestPeriod":"1",
-     * 		"checkoutTimeout":"3000",
-     * 
-     * 		"sequenceTable":"sys_sequences"
-     * } 
+     * 		"default":
+     * 		{
+     * 			"driverClass":"com.mysql.jdbc.Driver",
+     * 			"jdbcUrl":"jdbc:mysql://10.1.228.222:39306/devrunnerospdb1?useUnicode=true&characterEncoding=UTF-8",
+     * 			"user":"devrunnerospusr1",
+     * 			"password":"devrunnerospusr1",
+     * 			"minPoolSize":"1",
+     * 			"maxPoolSize":"100",
+     * 			"initialPoolSize":"1",
+     * 			"maxIdleTime":"1",
+     * 			"acquireIncrement":"1",
+     * 			"acquireRetryAttempts":"30",
+     * 			"acquireRetryDelay":"1000",
+     * 			"testConnectionOnCheckin":"true",
+     * 			"automaticTestTable":"c3p0TestTable",
+     * 			"idleConnectionTestPeriod":"1",
+     * 			"checkoutTimeout":"3000",
+     * 			"sequenceTable":"sys_sequences"
+     * 		}, 
+     *      "sso-db":
+     * 		{
+     * 			"driverClass":"com.mysql.jdbc.Driver",
+     * 			"jdbcUrl":"jdbc:mysql://10.1.228.222:39306/devrunnerospdb1?useUnicode=true&characterEncoding=UTF-8",
+     * 			"user":"devrunnerospusr1",
+     * 			"password":"devrunnerospusr1",
+     * 			"minPoolSize":"1",
+     * 			"maxPoolSize":"100",
+     * 			"initialPoolSize":"1",
+     * 			"maxIdleTime":"1",
+     * 			"acquireIncrement":"1",
+     * 			"acquireRetryAttempts":"30",
+     * 			"acquireRetryDelay":"1000",
+     * 			"testConnectionOnCheckin":"true",
+     * 			"automaticTestTable":"c3p0TestTable",
+     * 			"idleConnectionTestPeriod":"1",
+     * 			"checkoutTimeout":"3000",
+     * 			"sequenceTable":"sys_sequences"
+     * 		}
+     * }
      */
     public static final String PAAS_DATASOURCE_C3P0_CONFIG_PATH = "/datasource/c3p0/config";
     
