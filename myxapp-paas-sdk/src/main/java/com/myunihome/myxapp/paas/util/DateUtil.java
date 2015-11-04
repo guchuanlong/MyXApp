@@ -10,14 +10,14 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.myunihome.myxapp.paas.exception.PaasRuntimeException;
 
 public final class DateUtil {
 
-    private static final Logger LOG = LogManager.getLogger(DateUtil.class);
+    private static final Log LOG = LogFactory.getLog(DateUtil.class);
 
     public static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 

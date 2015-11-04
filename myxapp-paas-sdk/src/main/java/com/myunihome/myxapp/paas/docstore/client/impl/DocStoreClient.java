@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBObject;
@@ -21,10 +21,8 @@ import com.myunihome.myxapp.paas.cache.client.ICacheClient;
 import com.myunihome.myxapp.paas.docstore.client.IDocStoreClient;
 import com.myunihome.myxapp.paas.docstore.exception.DocStoreRuntimeException;
 
-import redis.clients.jedis.JedisCluster;
-
 public class DocStoreClient implements IDocStoreClient{
-  private static final Logger log = LogManager.getLogger(DocStoreClient.class);
+  private static final Log log = LogFactory.getLog(DocStoreClient.class);
   private static final String FILE_NAME = "filename";
   private static final String REMARK = "remark";
   private MongoClient mongoClient;

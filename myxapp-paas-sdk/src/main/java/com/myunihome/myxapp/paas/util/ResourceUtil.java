@@ -5,14 +5,14 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.myunihome.myxapp.paas.i18n.MultiResourceBundle;
 
 public class ResourceUtil
 {
-  private static final transient Logger log = LoggerFactory.getLogger(ResourceUtil.class);
+  private static final transient Log log = LogFactory.getLog(ResourceUtil.class);
 
   private static ResourceBundle rb = null;
   private static Locale locale = null;

@@ -12,12 +12,12 @@ import java.security.Signature;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class CertUtil
 {
-  private static final transient Logger log = LoggerFactory.getLogger(CertUtil.class);
+  private static final transient Log log = LogFactory.getLog(CertUtil.class);
   private static final String PKCS12 = "PKCS12";
   private static final String X509 = "X.509";
   private static final String SHA1withRSA = "SHA1withRSA";

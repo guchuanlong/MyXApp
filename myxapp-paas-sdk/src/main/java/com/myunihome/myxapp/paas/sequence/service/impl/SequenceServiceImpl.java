@@ -9,8 +9,8 @@ import java.util.concurrent.locks.ReentrantLock;
 import javax.sql.DataSource;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.alibaba.fastjson.JSONObject;
 import com.myunihome.myxapp.paas.sequence.dao.ISequenceDao;
@@ -23,7 +23,7 @@ import com.myunihome.myxapp.paas.sequence.service.ISequenceService;
 import com.myunihome.myxapp.paas.util.StringUtil;
 
 public class SequenceServiceImpl implements ISequenceService {
-    public static final Logger LOG = LogManager.getLogger(SequenceServiceImpl.class);
+    public static final Log LOG = LogFactory.getLog(SequenceServiceImpl.class);
 
     private final Lock lock = new ReentrantLock();
 

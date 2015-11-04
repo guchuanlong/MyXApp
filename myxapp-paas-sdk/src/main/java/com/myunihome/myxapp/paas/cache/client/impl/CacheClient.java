@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.myunihome.myxapp.paas.cache.client.ICacheClient;
 import com.myunihome.myxapp.paas.cache.exception.CacheClientException;
@@ -23,7 +23,7 @@ import redis.clients.jedis.JedisPoolConfig;
  */
 public class CacheClient implements ICacheClient
 {
-  private static final transient Logger LOG = LogManager.getLogger(CacheClient.class);
+  private static final transient Log LOG = LogFactory.getLog(CacheClient.class);
   private JedisPool jedisPool;
   private JedisPoolConfig jedisPoolConfig;
   private static final int TIMEOUT_KEY = 5000;

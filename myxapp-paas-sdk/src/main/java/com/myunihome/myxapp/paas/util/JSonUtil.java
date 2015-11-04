@@ -1,12 +1,13 @@
 package com.myunihome.myxapp.paas.util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.google.gson.Gson;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class JSonUtil
 {
-  private static final transient Logger log = LoggerFactory.getLogger(JSonUtil.class);
+  private static final transient Log log = LogFactory.getLog(JSonUtil.class);
 
   private static Gson gson = new Gson();
 

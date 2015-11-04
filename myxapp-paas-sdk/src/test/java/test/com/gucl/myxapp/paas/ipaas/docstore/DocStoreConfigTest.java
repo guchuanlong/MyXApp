@@ -1,5 +1,6 @@
 package test.com.gucl.myxapp.paas.ipaas.docstore;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.alibaba.fastjson.JSON;
@@ -11,6 +12,7 @@ import com.myunihome.myxapp.paas.uniconfig.UniConfigFactory;
 public class DocStoreConfigTest {
 	String path=MyXAppConfConstants.PAAS_DOCSTORE_CONFIG_PATH;
 	@Test
+	@Ignore
 	public void testWriteDocStoreConfig(){
 		
 		StringBuilder sb=new StringBuilder();
@@ -34,12 +36,14 @@ public class DocStoreConfigTest {
 		formatByMyAppConfHelper();
 	}
 	@Test
+	@Ignore
 	public void testDocStoreConfigStrRead(){
 		System.out.println("查询数据["+path+"]，data="+queryConfig());
 		formatByMyAppConfHelper();
 	}
 	
 	@Test
+	@Ignore
 	public void testDocStoreConfigModify(){
 		StringBuilder sb=new StringBuilder();
 		sb.append("{");

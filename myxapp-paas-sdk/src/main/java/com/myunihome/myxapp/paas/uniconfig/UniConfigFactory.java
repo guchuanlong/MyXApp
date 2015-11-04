@@ -1,7 +1,7 @@
 package com.myunihome.myxapp.paas.uniconfig;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.myunihome.myxapp.paas.MyXAppConfHelper;
 import com.myunihome.myxapp.paas.model.UniConfigZkInfo;
@@ -9,7 +9,7 @@ import com.myunihome.myxapp.paas.uniconfig.client.IUniConfigClient;
 import com.myunihome.myxapp.paas.uniconfig.client.impl.UniConfigClient;
 
 public final class UniConfigFactory {
-	private static final Logger LOG = LogManager.getLogger(UniConfigFactory.class);
+	private static final Log LOG = LogFactory.getLog(UniConfigFactory.class);
     private UniConfigFactory(){
         
     }

@@ -1,20 +1,35 @@
 dependencies {    
+	//commons-logging日志API
+	compile 'commons-logging:commons-logging:1.2'
+	//commons-logging适配log4j1
+	//compile 'log4j:log4j:1.2.17'	
+	////log4j2
+	//compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.3'
+    //compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.3'
+    ////commons-logging适配log4j2 优先级高于log4j1 log4j-jcl-2.3.jar优先级高于log4j-1.2.17.jar
+    //compile group: 'org.apache.logging.log4j', name: 'log4j-jcl', version: '2.3'
+	
+	////slf4j日志API
+	//compile 'org.slf4j:slf4j-api:1.7.12'
+	////slf4j适配log4j1 
+    //compile 'org.slf4j:slf4j-log4j12:1.7.12'
+    ////slf4j适配log4j2 优先级高于log4j1
+    //compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.4'
+	
 	//commons
 	compile 'commons-lang:commons-lang:2.6'
 	compile 'commons-io:commons-io:2.4'
 	compile 'commons-beanutils:commons-beanutils:1.9.2'
 	compile "org.apache.commons:commons-pool2:2.3"
     compile "org.apache.commons:commons-lang3:3.3.2"
-	
-	//log4j
-	compile 'log4j:log4j:1.2.17'	
-	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.3'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.3'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-jcl', version: '2.3'
+    
+    //httpclient
+    compile 'org.apache.httpcomponents:httpclient:4.5'
 	
 	//json
 	compile 'com.alibaba:fastjson:1.2.6'
     compile 'com.google.code.gson:gson:2.3.1'
+    compile 'net.sf.json-lib:json-lib:2.4:jdk15'
 	
     //datasource
     compile 'com.zaxxer:HikariCP:2.4.0'
@@ -90,7 +105,54 @@ publishing {
             pom.withXml {
                 asNode().children().last() + {
                     delegate.dependencies {
-                    
+                        //commons-logging日志API
+                        delegate.dependency {
+                            delegate.groupId("commons-logging")
+                            delegate.artifactId("commons-logging")
+                            delegate.version("1.2")
+                        }
+                        ////log4j
+                        //delegate.dependency {
+                        //    delegate.groupId("log4j")
+                        //    delegate.artifactId("log4j")
+                        //    delegate.version("1.2.17")
+                        //}
+                        //delegate.dependency {
+                        //    delegate.groupId("org.apache.logging.log4j")
+                        //    delegate.artifactId("log4j-api")
+                        //    delegate.version("2.3")
+                        //}
+                        //delegate.dependency {
+                        //    delegate.groupId("org.apache.logging.log4j")
+                        //    delegate.artifactId("log4j-core")
+                        //    delegate.version("2.3")
+                        //}
+                        ////commons-logging适配log4j2 优先级高于log4j1 log4j-jcl-2.3.jar优先级高于log4j-1.2.17.jar
+                        //delegate.dependency {
+                        //    delegate.groupId("org.apache.logging.log4j")
+                        //    delegate.artifactId("log4j-jcl")
+                        //    delegate.version("2.3")
+                        //}
+                        
+                        ////slf4j日志API
+                        //delegate.dependency {
+                        //    delegate.groupId("org.slf4j")
+                        //    delegate.artifactId("slf4j-api")
+                        //    delegate.version("1.7.12")
+                        //}
+                        ////slf4j适配log4j1 
+                        //delegate.dependency {
+                        //    delegate.groupId("org.slf4j")
+                        //    delegate.artifactId("slf4j-log4j12")
+                        //    delegate.version("1.7.12")
+                        //}
+                        ////slf4j适配log4j2 优先级高于log4j1
+                        //delegate.dependency {
+                        //    delegate.groupId("org.apache.logging.log4j")
+                        //    delegate.artifactId("log4j-slf4j-impl")
+                        //    delegate.version("2.4")
+                        //}
+                        
                     	//commons
                         delegate.dependency {
                             delegate.groupId("commons-lang")
@@ -118,26 +180,11 @@ publishing {
                             delegate.version("3.3.2")
                         }
                         
-                        //log4j
+                        //httpclient
                         delegate.dependency {
-                            delegate.groupId("log4j")
-                            delegate.artifactId("log4j")
-                            delegate.version("1.2.17")
-                        }
-                        delegate.dependency {
-                            delegate.groupId("org.apache.logging.log4j")
-                            delegate.artifactId("log4j-api")
-                            delegate.version("2.3")
-                        }
-                        delegate.dependency {
-                            delegate.groupId("org.apache.logging.log4j")
-                            delegate.artifactId("log4j-core")
-                            delegate.version("2.3")
-                        }
-                        delegate.dependency {
-                            delegate.groupId("org.apache.logging.log4j")
-                            delegate.artifactId("log4j-jcl")
-                            delegate.version("2.3")
+                            delegate.groupId("org.apache.httpcomponents")
+                            delegate.artifactId("httpclient")
+                            delegate.version("4.5")
                         }
                         
                         //json
@@ -150,6 +197,12 @@ publishing {
                             delegate.groupId("com.google.code.gson")
                             delegate.artifactId("gson")
                             delegate.version("2.3.1")
+                        }
+                        delegate.dependency {
+                            delegate.groupId("net.sf.json-lib")
+                            delegate.artifactId("json-lib")
+                            delegate.version("2.4")
+                            delegate.classifier("jdk15")
                         }
                         
                         //datasource

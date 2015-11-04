@@ -1,19 +1,20 @@
 package com.myunihome.myxapp.paas.util;
 
-import java.io.PrintStream;
 import java.security.Key;
+
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class CiperUtil
 {
-  private static final transient Logger log = LoggerFactory.getLogger(CiperUtil.class);
+  private static final transient Log log = LogFactory.getLog(CiperUtil.class);
   public static final String KEY_ALGORITHM = "DES";
   public static final String DES_ECB_ALGORITHM = "DES/ECB/PKCS5Padding";
   public static final String DES_CBC_ALGORITHM = "DES/CBC/PKCS5Padding";

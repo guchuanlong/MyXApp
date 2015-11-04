@@ -1,5 +1,6 @@
 package test.com.gucl.myxapp.paas.ipaas.cache;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.alibaba.fastjson.JSON;
@@ -11,6 +12,7 @@ import com.myunihome.myxapp.paas.uniconfig.UniConfigFactory;
 public class CacheConfigTest {
 	String path=MyXAppConfConstants.PAAS_CACHE_CONFIG_PATH;
 	@Test
+	@Ignore
 	public void testWriteCacheConfig(){
 		
 		StringBuilder sb=new StringBuilder();
@@ -29,20 +31,70 @@ public class CacheConfigTest {
 		formatByMyAppConfHelper();
 	}
 	@Test
+	@Ignore
 	public void testCacheConfigStrRead(){
 		System.out.println("查询数据["+path+"]，data="+queryConfig());
 		formatByMyAppConfHelper();
 	}
 	
 	@Test
+	@Ignore
 	public void testCacheConfigModify(){
 		StringBuilder sb=new StringBuilder();
 		sb.append("{");
 		sb.append("\"default\":");
 		sb.append("  {");
 		sb.append("	    \"jedisPoolConfig\":{\"maxTotal\":\"500\",\"maxIdle\":\"5\",\"maxWaitMillis\":\"10000\",\"testOnBorrow\":\"true\"},");
-		sb.append("     \"jedisHostAndPorts\":\"192.168.0.10:6379\",");
+		sb.append("     \"jedisHostAndPorts\":\"127.0.0.1:6379\",");
 //		sb.append("     \"jedisHostAndPorts\":\"192.168.0.10:7001,192.168.0.10:7002,192.168.0.10:7003,192.168.0.10:7004,192.168.0.10:7005,192.168.0.10:7006\",");
+		sb.append(" 	\"password\":\"123456\" ");
+		sb.append("	 },");
+		sb.append("\"com.myunihome.myxapp.sso.cache.gnservicerouteconfig\":");
+		sb.append("  {");
+		sb.append("	    \"jedisPoolConfig\":{\"maxTotal\":\"500\",\"maxIdle\":\"5\",\"maxWaitMillis\":\"10000\",\"testOnBorrow\":\"true\"},");
+		sb.append("     \"jedisHostAndPorts\":\"127.0.0.1:6379\",");
+		sb.append(" 	\"password\":\"123456\" ");
+		sb.append("	 },");
+		sb.append("\"com.myunihome.myxapp.sso.session.SessionServer\":");
+		sb.append("  {");
+		sb.append("	    \"jedisPoolConfig\":{\"maxTotal\":\"500\",\"maxIdle\":\"5\",\"maxWaitMillis\":\"10000\",\"testOnBorrow\":\"true\"},");
+		sb.append("     \"jedisHostAndPorts\":\"127.0.0.1:6379\",");
+		sb.append(" 	\"password\":\"123456\" ");
+		sb.append("	 },");
+		sb.append("\"com.myunihome.myxapp.common.cache.gnsysparam\":");
+		sb.append("  {");
+		sb.append("	    \"jedisPoolConfig\":{\"maxTotal\":\"500\",\"maxIdle\":\"5\",\"maxWaitMillis\":\"10000\",\"testOnBorrow\":\"true\"},");
+		sb.append("     \"jedisHostAndPorts\":\"127.0.0.1:6379\",");
+		sb.append(" 	\"password\":\"123456\" ");
+		sb.append("	 },");
+		sb.append("\"com.myunihome.myxapp.common.cache.gncfgproperties\":");
+		sb.append("  {");
+		sb.append("	    \"jedisPoolConfig\":{\"maxTotal\":\"500\",\"maxIdle\":\"5\",\"maxWaitMillis\":\"10000\",\"testOnBorrow\":\"true\"},");
+		sb.append("     \"jedisHostAndPorts\":\"127.0.0.1:6379\",");
+		sb.append(" 	\"password\":\"123456\" ");
+		sb.append("	 },");
+		sb.append("\"com.myunihome.myxapp.common.cache.gnservicerouteconfig\":");
+		sb.append("  {");
+		sb.append("	    \"jedisPoolConfig\":{\"maxTotal\":\"500\",\"maxIdle\":\"5\",\"maxWaitMillis\":\"10000\",\"testOnBorrow\":\"true\"},");
+		sb.append("     \"jedisHostAndPorts\":\"127.0.0.1:6379\",");
+		sb.append(" 	\"password\":\"123456\" ");
+		sb.append("	 },");
+		sb.append("\"com.myunihome.myxapp.common.cache.gndepart\":");
+		sb.append("  {");
+		sb.append("	    \"jedisPoolConfig\":{\"maxTotal\":\"500\",\"maxIdle\":\"5\",\"maxWaitMillis\":\"10000\",\"testOnBorrow\":\"true\"},");
+		sb.append("     \"jedisHostAndPorts\":\"127.0.0.1:6379\",");
+		sb.append(" 	\"password\":\"123456\" ");
+		sb.append("	 },");
+		sb.append("\"com.myunihome.myxapp.common.cache.gnsubject\":");
+		sb.append("  {");
+		sb.append("	    \"jedisPoolConfig\":{\"maxTotal\":\"500\",\"maxIdle\":\"5\",\"maxWaitMillis\":\"10000\",\"testOnBorrow\":\"true\"},");
+		sb.append("     \"jedisHostAndPorts\":\"127.0.0.1:6379\",");
+		sb.append(" 	\"password\":\"123456\" ");
+		sb.append("	 },");
+		sb.append("\"com.myunihome.myxapp.common.cache.gnsubjectfund\":");
+		sb.append("  {");
+		sb.append("	    \"jedisPoolConfig\":{\"maxTotal\":\"500\",\"maxIdle\":\"5\",\"maxWaitMillis\":\"10000\",\"testOnBorrow\":\"true\"},");
+		sb.append("     \"jedisHostAndPorts\":\"127.0.0.1:6379\",");
 		sb.append(" 	\"password\":\"123456\" ");
 		sb.append("	 }");
 		sb.append("}");

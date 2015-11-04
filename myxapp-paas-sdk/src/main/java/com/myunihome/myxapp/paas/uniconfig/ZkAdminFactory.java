@@ -1,7 +1,7 @@
 package com.myunihome.myxapp.paas.uniconfig;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.myunihome.myxapp.paas.MyXAppConfHelper;
 import com.myunihome.myxapp.paas.model.UniConfigZkInfo;
@@ -14,7 +14,7 @@ public final class ZkAdminFactory {
         
     }
 
-    private static final Logger LOG = LogManager.getLogger(ZkAdminFactory.class);
+    private static final Log LOG = LogFactory.getLog(ZkAdminFactory.class);
 
     public static IZkAdminClient getZkAdminClient() {
     	UniConfigZkInfo uniConfZkInfo=MyXAppConfHelper.getInstance().getUniConfigZkConf();

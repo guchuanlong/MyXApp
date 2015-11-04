@@ -3,8 +3,8 @@ package com.myunihome.myxapp.paas.cache;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.myunihome.myxapp.paas.MyXAppConfHelper;
 import com.myunihome.myxapp.paas.cache.client.ICacheClient;
@@ -26,7 +26,7 @@ public final class CacheFactory {
     private CacheFactory(){
         
     }
-    private static final Logger LOG = LogManager.getLogger(CacheFactory.class);
+    private static final Log LOG = LogFactory.getLog(CacheFactory.class);
     private static Map<String, ICacheClient> cacheClients = new ConcurrentHashMap<String, ICacheClient>();
     
     public static ICacheClient getCacheClient(){

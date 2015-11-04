@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.myunihome.myxapp.paas.docstore.DocStoreFactory;
@@ -16,6 +17,7 @@ import com.myunihome.myxapp.paas.docstore.client.IDocStoreClient;
 public class DocStoreTest {
 	
 	@Test
+	@Ignore
 	public void testSaveFileByBytes(){
 		IDocStoreClient client=DocStoreFactory.getDocStorageClient();
 		String filepath="g:\\test.png";
@@ -27,6 +29,7 @@ public class DocStoreTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testSaveFile(){
 		IDocStoreClient client=DocStoreFactory.getDocStorageClient();
 		File img=new File("g:\\test.png");
@@ -36,6 +39,7 @@ public class DocStoreTest {
 		readFile(fileid);
 	}
 	@Test
+	@Ignore
 	public void testReadFile(){
 		String fileid="DSS001$55f0fada702e8837e4fc97a3";
 		readFile(fileid);

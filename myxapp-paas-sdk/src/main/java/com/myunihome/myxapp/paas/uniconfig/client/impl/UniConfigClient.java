@@ -5,8 +5,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Id;
@@ -25,7 +25,7 @@ import com.myunihome.myxapp.paas.util.StringUtil;
 
 public class UniConfigClient implements IUniConfigClient {
 
-	private static final Logger LOG = LogManager.getLogger(UniConfigClient.class);
+	private static final Log LOG = LogFactory.getLog(UniConfigClient.class);
 	// 应用程序域
 	private String appDomain;
 	// 应用程序ID
