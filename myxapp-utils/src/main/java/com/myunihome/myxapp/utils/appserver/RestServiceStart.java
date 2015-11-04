@@ -1,12 +1,12 @@
 package com.myunihome.myxapp.utils.appserver;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public final class RestServiceStart {
 
-    private static final Logger LOG = LogManager.getLogger(RestServiceStart.class.getName());
+    private static final Log LOG = LogFactory.getLog(RestServiceStart.class.getName());
 
     private static final String REST_CONTEXT = "classpath:dubbo/provider/rest-provider.xml";
 

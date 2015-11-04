@@ -1,16 +1,17 @@
 package com.myunihome.myxapp.utils.aop.dubbo;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.LogFactory;
+import org.aspectj.lang.JoinPoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.myunihome.myxapp.paas.util.CollectionUtil;
 import com.myunihome.myxapp.paas.util.ThreadLocalUtils;
 import com.myunihome.myxapp.paas.util.UUIDUtil;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.aspectj.lang.JoinPoint;
 
 /**
  * Dubbo请求参数日志记录
@@ -23,7 +24,7 @@ public class DubboRequestTracking {
 
     private static final String REQUEST_PARAM = "request_param";
 
-    private static final Logger LOG = LogManager.getLogger(DubboRequestTracking.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DubboRequestTracking.class);
 
     public void printReturn(JoinPoint joinPoint, Object returnVal) {
         String reqSV = joinPoint.getTarget().getClass().getName();

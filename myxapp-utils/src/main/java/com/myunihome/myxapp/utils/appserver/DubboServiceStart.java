@@ -1,12 +1,12 @@
 package com.myunihome.myxapp.utils.appserver;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public final class DubboServiceStart {
     
-    private static final Logger LOG = LogManager.getLogger(DubboServiceStart.class.getName());
+    private static final Log LOG = LogFactory.getLog(DubboServiceStart.class.getName());
 
     private static final String DUBBO_CONTEXT = "classpath:dubbo/provider/dubbo-provider.xml";
     
