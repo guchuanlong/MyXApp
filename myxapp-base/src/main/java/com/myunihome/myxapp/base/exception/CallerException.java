@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 public class CallerException extends RuntimeException implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
     /**
      * 异常代码
@@ -54,6 +54,19 @@ public class CallerException extends RuntimeException implements Serializable {
         this.errorMessage = errorMessage;
         this.errorDetail = errorDetail;
     }
+    
+    /**
+     * 异常构造器
+     * @param errorCode 异常代码
+     * @param errorMessage 异常信息
+     * @param rawException 原始异常信息
+     */
+    public CallerException(String errorCode, String errorMessage, Exception rawException) {
+        super(errorMessage);
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
+        this.setStackTrace(rawException.getStackTrace());
+    }
 
     public String getErrorCode() {
         return errorCode;
@@ -78,5 +91,4 @@ public class CallerException extends RuntimeException implements Serializable {
     public void setErrorDetail(String errorDetail) {
         this.errorDetail = errorDetail;
     }
-
 }

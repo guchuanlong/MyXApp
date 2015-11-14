@@ -4,6 +4,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.myunihome.myxapp.utils.util.DubboPropUtil;
+
 public final class DubboServiceStart {
     
     private static final Log LOG = LogFactory.getLog(DubboServiceStart.class.getName());
@@ -15,6 +17,8 @@ public final class DubboServiceStart {
     @SuppressWarnings("resource")
     private static void startDubbo() {
         LOG.info("开始启动 Dubbo 服务---------------------------");
+        // 从配置中心加载DUBBO的核心配置
+        DubboPropUtil.setDubboProviderProperties();
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 new String[] { DUBBO_CONTEXT });
         context.registerShutdownHook();

@@ -31,6 +31,7 @@ public class DubboConsumerFactory {
     }
 
     private synchronized static void initApplicationContext() {
+    	DubboPropUtil.setDubboConsumerProperties();
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 new String[] { PATH });
         context.start();

@@ -9,6 +9,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.myunihome.myxapp.paas.constants.MyXAppConfConstants;
 import com.myunihome.myxapp.paas.constants.MyXAppPaaSConstant;
@@ -18,6 +19,7 @@ import com.myunihome.myxapp.paas.model.CacheConfigInfo;
 import com.myunihome.myxapp.paas.model.DBCPDataSourceConfig;
 import com.myunihome.myxapp.paas.model.DocStoreConfigInfo;
 import com.myunihome.myxapp.paas.model.DruidDataSourceConfig;
+import com.myunihome.myxapp.paas.model.ESConfigInfo;
 import com.myunihome.myxapp.paas.model.HikariCPDataSourceConfig;
 import com.myunihome.myxapp.paas.model.UniConfigZkInfo;
 import com.myunihome.myxapp.paas.uniconfig.UniConfigFactory;
@@ -233,7 +235,9 @@ public final class MyXAppConfHelper {
     public C3P0DataSourceConfig getC3P0DataSourceConfig(){
     	return getC3P0DataSourceConfig(MyXAppPaaSConstant.DEFAULT);
     }
-    
+    public ESConfigInfo getSearchConfig(){
+    	return getSearchConfig(MyXAppPaaSConstant.DEFAULT);
+    }
     public HikariCPDataSourceConfig getHikariCPDataSourceConfig(String dataSourceName){
     	Map<String,HikariCPDataSourceConfig> configMap=getHikariCPDataSourceConfigMap();
     	HikariCPDataSourceConfig config=configMap.get(dataSourceName);
@@ -265,6 +269,16 @@ public final class MyXAppConfHelper {
             throw new PaasRuntimeException("cann't get paas datasource configInfo because config is null");
         }
         return config;
+    }
+    public ESConfigInfo getSearchConfig(String namespace){
+    	Map<String,String> configMap=getSearchConfigMap();
+    	String config=configMap.get(namespace);
+        if (config==null) {
+            throw new PaasRuntimeException("cann't get paas search configInfo because config is null");
+        }
+        ESConfigInfo esconf=JSON.parseObject(config, ESConfigInfo.class);
+        
+        return esconf;
     }
 
     public List<String> getHikariCPDataSourceNames(){
@@ -304,6 +318,16 @@ public final class MyXAppConfHelper {
     	return dataSourceNames;
     }
     
+    public List<String> getSearchNameSpaces(){
+    	Map<String,String> configMap=getSearchConfigMap();
+    	Set<String> keySet=configMap.keySet();
+    	List<String> searchNameSpaces=new ArrayList<String>();
+    	if(!CollectionUtil.isEmpty(keySet)){    		
+    		searchNameSpaces.addAll(keySet);
+    	}
+    	return searchNameSpaces;
+    }
+        
     public Map<String,HikariCPDataSourceConfig> getHikariCPDataSourceConfigMap() {
     	IUniConfigClient uniConfigClient = UniConfigFactory.getUniConfigClient();
         if (uniConfigClient == null) {
@@ -364,30 +388,51 @@ public final class MyXAppConfHelper {
         }
         return configMap;		
 	}
-
-    /*public String getCacheType() {
-        String type = prop.getProperty("paas.cache.type");
-        if (StringUtil.isBlank(type)) {
-            throw new PaasRuntimeException("cache type is null");
+    public Map<String,String> getSearchConfigMap() {
+    	IUniConfigClient uniConfigClient = UniConfigFactory.getUniConfigClient();
+        if (uniConfigClient == null) {
+            throw new PaasRuntimeException("cann't get paas search configInfo because uniConfigClient is null");
         }
-        return type;
+        String esConfig=uniConfigClient.get(MyXAppConfConstants.PAAS_SEARCH_CONFIG_PATH);
+        if (StringUtil.isBlank(esConfig)) {
+            throw new PaasRuntimeException("cann't get paas search configInfo because search Config in UniConfig is blank");
+        }
+        Map<String,String> configMap=JSON.parseObject(esConfig, new TypeReference<Map<String,String>>(){});
+        if (configMap==null) {
+            throw new PaasRuntimeException("cann't get paas search configInfo because searchconfigMap is null");
+        }
+        return configMap;		
+	}
+    public JSONObject getDubboProviderConf(){
+    	IUniConfigClient uniConfigClient = UniConfigFactory.getUniConfigClient();
+        if (uniConfigClient == null) {
+            throw new PaasRuntimeException("cann't get paas dubbo provider configInfo because uniConfigClient is null");
+        }
+        String strDubboProviderConf=uniConfigClient.get(MyXAppConfConstants.DUBBO_PROVIDER_CONF_PATH);
+        if (StringUtil.isBlank(strDubboProviderConf)) {
+            throw new PaasRuntimeException("cann't get paas dubbo provider configInfo because dubbo provider Config in UniConfig is blank");
+        }
+        JSONObject jsonConf=JSON.parseObject(strDubboProviderConf, JSONObject.class);
+        if (jsonConf==null) {
+            throw new PaasRuntimeException("cann't get paas dubbo provider configInfo because configInfo is null");
+        }
+    	return jsonConf;
     }
-    
-    public String getSequenceType() {
-        String type = prop.getProperty("paas.sequence.type");
-        if (StringUtil.isBlank(type)) {
-            throw new PaasRuntimeException("sequence type is null");
-        }
-        return type;
+    public JSONObject getDubboConsumerConf(){
+    	IUniConfigClient uniConfigClient = UniConfigFactory.getUniConfigClient();
+    	if (uniConfigClient == null) {
+    		throw new PaasRuntimeException("cann't get paas dubbo consumer configInfo because uniConfigClient is null");
+    	}
+    	String strDubboConsumerConf=uniConfigClient.get(MyXAppConfConstants.DUBBO_CONSUMER_CONF_PATH);
+    	if (StringUtil.isBlank(strDubboConsumerConf)) {
+    		throw new PaasRuntimeException("cann't get paas dubbo consumer configInfo because dubbo consumer Config in UniConfig is blank");
+    	}
+    	JSONObject jsonConf=JSON.parseObject(strDubboConsumerConf, JSONObject.class);
+    	if (jsonConf==null) {
+    		throw new PaasRuntimeException("cann't get paas dubbo consumer configInfo because configInfo is null");
+    	}
+    	return jsonConf;
     }
-
-    public String getDocStorageType() {
-        String type = prop.getProperty("paas.doc.storage.type");
-        if (StringUtil.isBlank(type)) {
-            throw new PaasRuntimeException("doc storage type is null");
-        }
-        return type;
-    }*/
 
     public String getPropValue(String key) {
         if (StringUtil.isBlank(key)) {

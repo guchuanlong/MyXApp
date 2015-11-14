@@ -50,10 +50,10 @@ public final class MyXAppConfConstants {
      * 		  "mongoDBDataBaseName":"myappdb01",
      * 		  "mongoDBUserName":"myappdbusr01",
      * 	  	  "mongoDBPassword":"password",
-     * 		  "redisHostAndPorts":"192.168.0.21:6379,192.168.0.22:6379,192.168.0.23:6379",
      * 		  "mongoDBGridFSBucket":"mygridfs01",
      * 		  "mongoDBGridFSFileLimitSize":"1024",
-     * 		  "mongoDBGridFSMaxSize":"1"
+     * 		  "mongoDBGridFSMaxSize":"1",
+     * 		  "cacheNameSpace":"default"
      *   },
      *   "doorweb":
      *   {
@@ -61,10 +61,10 @@ public final class MyXAppConfConstants {
      * 		  "mongoDBDataBaseName":"myappdb01",
      * 		  "mongoDBUserName":"myappdbusr01",
      * 	  	  "mongoDBPassword":"password",
-     * 		  "redisHostAndPorts":"192.168.0.21:6379,192.168.0.22:6379,192.168.0.23:6379",
      * 		  "mongoDBGridFSBucket":"mygridfs01",
      * 		  "mongoDBGridFSFileLimitSize":"1024",
-     * 		  "mongoDBGridFSMaxSize":"1"
+     * 		  "mongoDBGridFSMaxSize":"1",
+     * 		  "cacheNameSpace":"default"
      *   },
      *   "crmweb":
      *   {
@@ -72,10 +72,10 @@ public final class MyXAppConfConstants {
      * 		  "mongoDBDataBaseName":"myappdb01",
      * 		  "mongoDBUserName":"myappdbusr01",
      * 	  	  "mongoDBPassword":"password",
-     * 		  "redisHostAndPorts":"192.168.0.21:6379,192.168.0.22:6379,192.168.0.23:6379",
      * 		  "mongoDBGridFSBucket":"mygridfs01",
      * 		  "mongoDBGridFSFileLimitSize":"1024",
-     * 		  "mongoDBGridFSMaxSize":"1"
+     * 		  "mongoDBGridFSMaxSize":"1",
+     *        "cacheNameSpace":"default"
      *   }
      *    
      * }
@@ -320,44 +320,47 @@ public final class MyXAppConfConstants {
      */
     public static final String PAAS_DATASOURCE_C3P0_CONFIG_PATH = "/datasource/c3p0/config";
     
+    /**
+     * 搜索引擎配置信息<br/>
+     * <p/>
+     * 
+     * 搜索引擎配置示例数据：
+     * {
+     * 		"default":
+     * 		{
+     * 			"hostAndPorts":"127.0.0.1:9300,192.168.0.10:9300"
+     * 		}, 
+     *      "sso-search":
+     * 		{
+     * 			"hostAndPorts":"127.0.0.1:9300,192.168.0.10:9300"
+     * 		}
+     * }
+     */
+    public static final String PAAS_SEARCH_CONFIG_PATH = "/search/config";
+    
+    /**Dubbo服务提供者配置数据
+     *  {
+     *  	"dubbo.provider.retries":"0",
+     *  	"dubbo.registry.address": "localhost:2181",
+     *  	"dubbo.provider.timeout":"30000"
+     *  }
+     */
+    public static final String DUBBO_PROVIDER_CONF_PATH = "/dubbo/provider";
+
+    /**Dubbo服务消费者配置数据
+     * {
+     * 		"default.dubbo.registry.address":"localhost:2181",
+     * 		"myxapp-common.registry.address":"localhost:2181",
+     * 		"myxapp-sys.registry.address": "localhost:2181"
+     * }
+     */
+    public static final String DUBBO_CONSUMER_CONF_PATH = "/dubbo/consumer";
+    
+    
+    
+    
     public static final String PAAS_TXS_CONFIG_PATH = "/txs/config";
     public static final String PAAS_ATXS_CONFIG_PATH = "/atxs/config";
     public static final String PAAS_MQ_CONFIG_PATH = "/mq/config";
-    
-    
-    
-    public static final String PAAS_CACHENS_MCS_MAPPED_PATH = "/com/gucl/myapp/paas-cachens-mcs-mapped";
-
-    /**
-     * ServiceID和其对应密码，用户名和ServiceID对应关系，每个ServiceID都有一条配置项<br/>
-     * <p/>
-     * 例如ServiceIdA的配置如下： /com/gucl/myapp/paas-service-pwd-mapped/mcs {"MCS001":"password"}
-     *
-     * /com/gucl/myapp/paas-service-pwd-mapped/txs {"TXS001":"password"}
-     * /com/gucl/myapp/paas-service-pwd-mapped/dss {"DSS001":"password"}
-     */
-    public static final String PAAS_SERVICE_PWD_MAPPED_PATH = "/com/gucl/myapp/paas-service-pwd-mapped/";
-
-    /**
-     * 当前系统需要使用的TXS服务ID是什么 /com/gucl/myapp/paas-txs TXS001
-     */
-    public static final String PAAS_TXS_PATH = "/com/gucl/myapp/paas-txs";
-
-    /**
-     * 当前系统需要使用的DBS服务ID是什么 /com/gucl/myapp/paas-dbs DBS001
-     */
-    public static final String PAAS_DBS_PATH = "/com/gucl/myapp/paas-dbs";
-
-    /**
-     * 引用该Util的中心产品的ATS的SignId，可以有多个,以逗号隔开。格式如下：
-     * <p/>
-     * /com/gucl/myapp/paas-ats-signatureId signatureId-bd5ff9b1-6f4d-4bbe-899e-840fc57b4cf0
-     */
-    public static final String PAAS_ATS_SIGNATUREID_PATH = "/com/gucl/myapp/paas-ats-signatureId";
-    
-    /**
-     * 配置ATS服务对应的签名ID {key:value} 其中key="com.xx.xx.IXXSV#method1" value="signatureId"
-     */
-    public static final String PAAS_ATS_SERVICE_SIGNATUREID_MAPPED_PATH  = "/com/gucl/myapp/paas-atsservice-signatureId-mapped";
 
 }
