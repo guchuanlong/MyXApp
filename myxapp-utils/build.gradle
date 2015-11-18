@@ -7,7 +7,6 @@ dependencies {
     )
 }
 
-
 publishing {
     publications {
         publishing.publications.create("${appName}", MavenPublication) {
