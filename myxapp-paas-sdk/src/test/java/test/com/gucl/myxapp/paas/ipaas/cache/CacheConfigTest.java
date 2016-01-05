@@ -38,7 +38,6 @@ public class CacheConfigTest {
 	}
 	
 	@Test
-	@Ignore
 	public void testCacheConfigModify(){
 		StringBuilder sb=new StringBuilder();
 		sb.append("{");
@@ -96,7 +95,14 @@ public class CacheConfigTest {
 		sb.append("	    \"jedisPoolConfig\":{\"maxTotal\":\"500\",\"maxIdle\":\"5\",\"maxWaitMillis\":\"10000\",\"testOnBorrow\":\"true\"},");
 		sb.append("     \"jedisHostAndPorts\":\"127.0.0.1:6379\",");
 		sb.append(" 	\"password\":\"123456\" ");
+		sb.append("	 },");
+		sb.append("\"com.myunihome.myxapp.common.cache.gnarea\":");
+		sb.append("  {");
+		sb.append("	    \"jedisPoolConfig\":{\"maxTotal\":\"500\",\"maxIdle\":\"5\",\"maxWaitMillis\":\"10000\",\"testOnBorrow\":\"true\"},");
+		sb.append("     \"jedisHostAndPorts\":\"127.0.0.1:6379\",");
+		sb.append(" 	\"password\":\"123456\" ");
 		sb.append("	 }");
+		
 		sb.append("}");
 		String data=sb.toString();
 		System.out.println("修改前数据["+path+"]，data="+queryConfig());

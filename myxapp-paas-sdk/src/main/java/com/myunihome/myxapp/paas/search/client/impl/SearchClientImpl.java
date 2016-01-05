@@ -461,10 +461,10 @@ public class SearchClientImpl implements ISearchClient {
 					.setSearchType(SearchType.DEFAULT).setQuery(boolQueryBuilder).setFrom(from).setSize(offset)
 					.setExplain(true);
 
-			if ((sortField != null) && (!sortField.isEmpty()) && (sortType != null) && (!sortType.isEmpty())) {
+			/*if ((sortField != null) && (!sortField.isEmpty()) && (sortType != null) && (!sortType.isEmpty())) {
 				SortOrder sortOrder = sortType.equals("desc") ? SortOrder.DESC : SortOrder.ASC;
 				searchRequestBuilder = searchRequestBuilder.addSort(sortField, sortOrder);
-			}
+			}*/
 
 			searchRequestBuilder = createHighlight(searchRequestBuilder, fieldList);
 			searchResponse = (SearchResponse) searchRequestBuilder.execute().actionGet();

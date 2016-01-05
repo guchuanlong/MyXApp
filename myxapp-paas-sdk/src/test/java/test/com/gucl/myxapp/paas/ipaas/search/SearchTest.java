@@ -16,6 +16,11 @@ import com.myunihome.myxapp.paas.search.vo.SearchOption.SearchLogic;
 import com.myunihome.myxapp.paas.search.vo.SearchfieldVo;
 
 public class SearchTest {
+	@Test
+	public void testIndexName(){
+		String indexName="gucl.com$mapp-sso$default";
+		System.out.println("indexname="+Math.abs(indexName.hashCode()));
+	}
 	
 	@Test
 	public void testAddIndex(){
@@ -48,7 +53,7 @@ public class SearchTest {
 		vo.setFiledName("devName");
 		List<String> valueList=new ArrayList<String>();
 		valueList.add("赵六");
-		//vo.setFiledValue(valueList);
+		vo.setFiledValue(valueList);
 		vo.setOption(new SearchOption());
 		fieldList.add(vo);
 		int from=0,offset=5;
