@@ -7,6 +7,7 @@ import com.alibaba.dubbo.rpc.Filter;
 import com.alibaba.dubbo.rpc.Invocation;
 import com.alibaba.dubbo.rpc.Invoker;
 import com.alibaba.dubbo.rpc.Result;
+import com.alibaba.dubbo.rpc.RpcResult;
 import com.alibaba.fastjson.JSON;
 import com.myunihome.myxapp.base.exception.BusinessException;
 import com.myunihome.myxapp.base.exception.CallerException;
@@ -29,7 +30,13 @@ public class DubboRequestTrackFilter implements Filter {
 		//交易序列
 		String tradeSeq = UUIDUtil.genId32();
 		//打印请求参数明细
-		printRequstInfo(reqSV, reqMethod, requestParams, tradeSeq);
+		if (CollectionUtil.isEmpty(requestParams)) {
+            LOG.info("TRADE_SEQ:{},拦截类型:{},请求类(接口):{},请求方法:{},请求参数:{}"
+            		,tradeSeq, "Dubbo请求参数拦截(无参数)", reqSV, reqMethod, "");
+        } else {            
+            LOG.info("TRADE_SEQ:{},拦截类型:{},请求类(接口):{},请求方法:{},请求参数:{}"
+            		,tradeSeq, "Dubbo请求参数拦截(有参数)", reqSV, reqMethod, JSON.toJSONString(requestParams));
+        }
         //ThreadLocalUtils.set(REQUEST_PARAM, tradeSeq);
         //执行结果
         Result result=null;
@@ -51,8 +58,9 @@ public class DubboRequestTrackFilter implements Filter {
         }        
         catch(Exception ex){
         	LOG.error("TRADE_SEQ:{},执行{}类中的{}方法发生异常:", tradeSeq,reqSV, reqMethod);
-        	LOG.error("TRADE_SEQ:"+tradeSeq+",异常堆栈:", ex);
-        	throw DubboExceptAssembler.assemble(ex);
+        	RpcResult r = new RpcResult();
+            r.setException(DubboExceptAssembler.assemble(ex));
+            return r;
         }
 		
 	}
@@ -76,26 +84,6 @@ public class DubboRequestTrackFilter implements Filter {
 			}
 		}
 		return isOK;		
-	}
-	/**
-	 * 打印请求信息
-	 * @param reqSV
-	 * @param reqMethod
-	 * @param requestParams
-	 * @param tradeSeq
-	 * @author gucl
-	 * @ApiDocMethod
-	 * @ApiCode
-	 */
-	private void printRequstInfo(String reqSV, String reqMethod,
-			Object[] requestParams, String tradeSeq) {
-        if (CollectionUtil.isEmpty(requestParams)) {
-            LOG.info("TRADE_SEQ:{},拦截类型:{},请求类(接口):{},请求方法:{},请求参数:{}"
-            		,tradeSeq, "Dubbo请求参数拦截(无参数)", reqSV, reqMethod, "");
-        } else {            
-            LOG.info("TRADE_SEQ:{},拦截类型:{},请求类(接口):{},请求方法:{},请求参数:{}"
-            		,tradeSeq, "Dubbo请求参数拦截(有参数)", reqSV, reqMethod, JSON.toJSONString(requestParams));
-        }
 	}
 
 }

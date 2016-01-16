@@ -6,7 +6,11 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 
-import com.alibaba.fastjson.JSONObject;
+import com.myunihome.myxapp.base.exception.CallerException;
+import com.myunihome.myxapp.paas.constants.MyXAppPaaSConstant;
+
+import net.sf.json.JSONObject;
+
 
 public class DubboRestResponseFilter implements ContainerResponseFilter {
 
@@ -14,17 +18,23 @@ public class DubboRestResponseFilter implements ContainerResponseFilter {
     public void filter(ContainerRequestContext requestContext,
             ContainerResponseContext responseContext) throws IOException {
         int status = responseContext.getStatus();
-        String reson = (responseContext.getEntity() == null) ? null : responseContext.getEntity()
-                .toString();
+        Object entity = responseContext.getEntity();
         JSONObject data = new JSONObject();
-        data.put("statusCode", status);
-        if(status==200){
-            data.put("statusMessage", "OK");
-            data.put("data", responseContext.getEntity());
-        }else{
-            data.put("statusMessage", reson);
+        if (status == 200) {
+            if (entity instanceof DubboRestResponse) {
+                DubboRestResponse resp = (DubboRestResponse) entity;
+                data.put("resultCode", resp.getResultCode());
+                data.put("resultMessage", resp.getResultMessage());
+            } else {
+                data.put("resultCode", MyXAppPaaSConstant.ExceptionCode.SUCCESS);
+                data.put("resultMessage", "请求成功，业务处理返回请查看data节点");
+                data.put("data", responseContext.getEntity());
+            }
+            responseContext.setEntity(data);
+        } else if (status == 204) {
+            //DUBBOX转REST协议，HTTP.204表示接口返回类型是void的情况，此处必须以正确的异常信息抛出，交给DubboRestExceptionMapper进行包装处理 
+            throw new CallerException(MyXAppPaaSConstant.ExceptionCode.SUCCESS, "请求成功,服务端没有返回信息");
         }
-        responseContext.setEntity(data);
 
     }
 

@@ -13,30 +13,35 @@ public final class DubboExceptAssembler {
     }
 
     public static CallerException assemble(BusinessException ex) {
-        return new CallerException(ex.getErrorCode(), ex.getErrorMessage(),ex);
+        return new CallerException(ex.getErrorCode(), ex.getErrorMessage(), ex);
     }
 
     public static CallerException assemble(SystemException ex) {
-        return new CallerException(ex.getErrorCode(), ex.getErrorMessage(),ex);
+        return new CallerException(ex.getErrorCode(), ex.getErrorMessage(), ex);
     }
 
     public static CallerException assemble(Exception ex) {
+        if (ex instanceof BusinessException) {
+            return assemble((BusinessException) ex);
+        } else if (ex instanceof SystemException) {
+            return assemble((SystemException) ex);
+        } else if (ex instanceof CallerException) {
+            return (CallerException) ex;
+        }
         return new CallerException(MyXAppPaaSConstant.ExceptionCode.SYSTEM_ERROR, StringUtil.isBlank(ex
-                .getMessage()) ? "系统异常，请联系管理员" : ex.getMessage(),ex);
+                .getMessage()) ? "系统异常，请联系管理员" : ex.getMessage(), ex);
     }
-    
+
     public static CallerException assemble(Throwable ex) {
-    	if(ex instanceof BusinessException ){
-    		return assemble((BusinessException)ex);
-    	}
-    	else if(ex instanceof SystemException ){
-    		return assemble((SystemException)ex);
-    	}
-    	else if(ex instanceof CallerException ){
-    		return assemble((CallerException)ex);
-    	}
+        if (ex instanceof BusinessException) {
+            return assemble((BusinessException) ex);
+        } else if (ex instanceof SystemException) {
+            return assemble((SystemException) ex);
+        } else if (ex instanceof CallerException) {
+            return (CallerException) ex;
+        }
         return new CallerException(MyXAppPaaSConstant.ExceptionCode.SYSTEM_ERROR, StringUtil.isBlank(ex
-                .getMessage()) ? "系统异常，请联系管理员" : ex.getMessage(),(Exception)ex);
+                .getMessage()) ? "系统异常，请联系管理员" : ex.getMessage(), (Exception) ex);
     }
 
 }
