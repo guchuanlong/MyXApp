@@ -302,12 +302,12 @@ publishing {
                         }
                         delegate.dependency {
                             delegate.groupId("org.springframework")
-                            delegate.artifactId("spring-context")
+                            delegate.artifactId("spring-tx")
                             delegate.version("4.1.7.RELEASE")
                         }
                         delegate.dependency {
                             delegate.groupId("org.springframework")
-                            delegate.artifactId("spring-context")
+                            delegate.artifactId("spring-jdbc")
                             delegate.version("4.1.7.RELEASE")
                         }
                         

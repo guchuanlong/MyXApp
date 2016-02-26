@@ -21,14 +21,18 @@ public final class RestServiceStart {
         context.registerShutdownHook();
         context.start();
         LOG.error(" REST 服务启动完毕---------------------------");
-        while (true) {
-            try {
-                Thread.currentThread();
-                Thread.sleep(3000L);
-            } catch (Exception e) {
-                LOG.error("REST 系统错误，具体信息为：" + e.getMessage(), e);
-            }
-        }
+        synchronized (RestServiceStart.class) {
+        	while (true) {
+        		try {
+        			//Thread.currentThread();
+        			//Thread.sleep(3000L);
+        			RestServiceStart.class.wait();
+        		} catch (Exception e) {
+        			LOG.error("REST 系统错误，具体信息为：" + e.getMessage(), e);
+        		}
+        	}
+			
+		}
     }
 
     public static void main(String[] args) {

@@ -31,7 +31,7 @@ public class Md5Util
   }
 
   public static void main(String[] args) {
-    String result = encode("111111");
+    String result = encode("123456");
     System.out.println("password=" + result);
 
     boolean isGood = isPasswordValid("E10ADC3949BA59ABBE56E057F20F883E", "111111");

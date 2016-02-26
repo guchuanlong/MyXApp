@@ -24,14 +24,17 @@ public final class DubboServiceStart {
         context.registerShutdownHook();
         context.start();
         LOG.info(" Dubbo 服务启动完毕---------------------------");
-        while (true) {
-            try {
-                Thread.currentThread();
-                Thread.sleep(3000L);
-            } catch (Exception e) {
-            	LOG.error("Dubbo 系统错误，具体信息为："+e.getMessage(),e);
-            }
-        }
+        synchronized (DubboServiceStart.class) {
+        	while (true) {
+        		try {
+        			//Thread.currentThread();
+        			//Thread.sleep(3000L);
+        			DubboServiceStart.class.wait();
+        		} catch (Exception e) {
+        			LOG.error("Dubbo 系统错误，具体信息为："+e.getMessage(),e);
+        		}
+        	}
+		}
     }
 
     public static void main(String[] args) {

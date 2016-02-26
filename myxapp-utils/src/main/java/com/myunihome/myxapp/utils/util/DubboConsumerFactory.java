@@ -21,17 +21,17 @@ public class DubboConsumerFactory {
 
     private static DubboConsumerFactory getInstance() {
         if (instance == null) {
-        	synchronized(DubboConsumerFactory.class){
-        		 if (instance == null) {
-        			 instance = new DubboConsumerFactory();
-        		 }
-        	}
+            synchronized (DubboConsumerFactory.class) {
+                if (instance == null) {
+                    instance = new DubboConsumerFactory();
+                }
+            }
         }
         return instance;
     }
 
     private synchronized static void initApplicationContext() {
-    	//DubboPropUtil.setDubboConsumerProperties();
+        //DubboPropUtil.setDubboConsumerProperties();
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 new String[] { PATH });
         context.start();
@@ -40,6 +40,10 @@ public class DubboConsumerFactory {
 
     public static <T> T getService(String beanId, Class<T> clazz) {
         return DubboConsumerFactory.getInstance().getServiceId(beanId, clazz);
+    }
+
+    public static <T> T getService(Class<T> clazz) {
+        return DubboConsumerFactory.getInstance().getServiceId(clazz);
     }
 
     public static <T> T getService(String beanId) {
@@ -62,6 +66,24 @@ public class DubboConsumerFactory {
             }
         }
         return (T) appContext.getBean(beanId, clazz);
+    }
+
+    private <T> T getServiceId(Class<T> clazz) {
+        if (appContext == null) {
+            synchronized (this) {
+                if (appContext == null) {
+                    initApplicationContext();
+                }
+            }
+        }
+        Object t = (T) appContext.getBean(clazz);
+        if (t == null) {
+            synchronized (appContext) {
+                appContext = null;
+                initApplicationContext();
+            }
+        }
+        return (T) appContext.getBean(clazz);
     }
 
     @SuppressWarnings("unchecked")
