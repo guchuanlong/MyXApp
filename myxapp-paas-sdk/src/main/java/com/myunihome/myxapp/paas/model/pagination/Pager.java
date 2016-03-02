@@ -1,160 +1,62 @@
 package com.myunihome.myxapp.paas.model.pagination;
 
+import java.io.Serializable;
+
 /**
  * 分页对象
- * @author gucl
  *
+ * Date: 2015年11月26日 <br>
+ * Copyright (c) 2015 asiainfo.com <br>
+ * 
+ * @author gucl
  */
-public class Pager
-{
-    //查询的到的记录的总条数
-	private int totalRows;
-	//每页显示的记录条数
-	private int pageSize;
-	//当前显示的页数
-	private int currentPage;
-	//总页数
-	private int totalPages;
-	//起始的记录条数
-	private int startRow;
-	//结束的记录条数
-	private int endRow;
+public class Pager implements Serializable {
 
-	public Pager()
-	{
-		pageSize = 10;
-	}
+    private static final long serialVersionUID = 1L;
 
-	public Pager(int _totalRows)
-	{
-		pageSize = 10;
-		totalRows = _totalRows;
-		totalPages = totalRows / pageSize;
-		int mod = totalRows % pageSize;
-		if (mod > 0)
-			totalPages++;
-		currentPage = 1;
-		startRow = 0;
-		endRow=startRow+pageSize;
-	}
-	
-	public Pager(int _totalRows, int _pageSize)
-	{
-		totalRows = _totalRows;
-		pageSize = _pageSize;
-		totalPages = totalRows / pageSize;
-		int mod = totalRows % pageSize;
-		if (mod > 0)
-			totalPages++;
-		currentPage = 1;
-		startRow = 0;
-		endRow=startRow+pageSize;
-	}
+    // 每页显示的记录条数
+    private int pageSize;
 
-	public int getStartRow()
-	{
-		return startRow;
-	}
+    // 当前显示的页数
+    private int currentPage;
 
-	public int getEndRow() {
-		return endRow;
-	}
+    // 总页数
+    private int totalPages;
 
-	public int getTotalPages()
-	{
-		return totalPages;
-	}
+    public Pager(int currentPage, int totalSize, int pageSize) {
+        this.currentPage = currentPage;
+        this.totalPages = (totalSize + pageSize - 1) / pageSize;
+        this.pageSize = pageSize;
+    }
 
-	public int getCurrentPage()
-	{
-		return currentPage;
-	}
+    public Pager(int currentPage, int totalPages) {
+        this.currentPage = currentPage;
+        this.totalPages = totalPages;
+        this.pageSize = 10;
+    }
 
-	public int getPageSize()
-	{
-		return pageSize;
-	}
+    public int getTotalPages() {
+        return totalPages;
+    }
 
-	public void setTotalRows(int totalRows)
-	{
-		this.totalRows = totalRows;
-	}
+    public int getCurrentPage() {
+        return currentPage;
+    }
 
-	public void setStartRow(int startRow)
-	{
-		this.startRow = startRow;
-	}
+    public void setTotalPages(int totalPages) {
+        this.totalPages = totalPages;
+    }
 
-	public void setEndRow(int endRow) {
-		this.endRow = endRow;
-	}
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
 
-	public void setTotalPages(int totalPages)
-	{
-		this.totalPages = totalPages;
-	}
+    public int getPageSize() {
+        return pageSize;
+    }
 
-	public void setCurrentPage(int currentPage)
-	{
-		this.currentPage = currentPage;
-	}
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
 
-	public void setPageSize(int pageSize)
-	{
-		this.pageSize = pageSize;
-	}
-
-	public int getTotalRows()
-	{
-		return totalRows;
-	}
-    //显示第一页
-	public void first()
-	{
-		currentPage = 1;
-		startRow = 0;
-		endRow=startRow+pageSize;
-	}
-    //显示上一页
-	public void previous()
-	{
-		if (currentPage == 1)
-		{
-			return;
-		} else
-		{
-			currentPage--;
-			startRow = (currentPage - 1) * pageSize;
-			endRow=startRow+pageSize;
-			return;
-		}
-	}
-    //显示下一页
-	public void next()
-	{
-		if (currentPage < totalPages)
-			currentPage++;
-		startRow = (currentPage - 1) * pageSize;
-		endRow=startRow+pageSize;
-	}
-    //显示最后一页
-	public void last()
-	{
-		currentPage = totalPages;
-		startRow = (currentPage - 1) * pageSize;
-		endRow=startRow+pageSize;
-	}
-
-	public void gogo()
-	{
-		startRow = (currentPage - 1) * pageSize;
-		endRow=startRow+pageSize;
-	}
-
-	public void refresh(int _currentPage)
-	{
-		currentPage = _currentPage;
-		if (currentPage > totalPages)
-			last();
-	}
 }

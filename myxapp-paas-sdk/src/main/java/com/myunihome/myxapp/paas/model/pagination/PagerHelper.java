@@ -1,67 +1,38 @@
 package com.myunihome.myxapp.paas.model.pagination;
-import javax.servlet.http.HttpServletRequest;
+
 /**
  * 分页工具类
- * @author gucl
  *
+ * Date: 2015年11月26日 <br>
+ * Copyright (c) 2015 asiainfo.com <br>
+ * @author gucl
  */
-public class PagerHelper
-{
+public final class PagerHelper {
 
-	public PagerHelper()
-	{
-	}
-    
-	public static Pager getPager(HttpServletRequest httpServletRequest, int totalRows)
-	{
-		Pager pager = new Pager(totalRows);
-		//获取当前所在的页数
-		String currentPage = httpServletRequest.getParameter("currentPage");
-		if (currentPage != null)
-			pager.refresh(Integer.parseInt(currentPage));
-		//根据用户执行的翻页操作，决定执行的方法
-		String pagerMethod = httpServletRequest.getParameter("pageMethod");
-		if (pagerMethod != null)
-			if (pagerMethod.equals("first"))
-				pager.first();
-			else
-			if (pagerMethod.equals("prev"))
-				pager.previous();
-			else
-			if (pagerMethod.equals("next"))
-				pager.next();
-			else
-			if (pagerMethod.equals("last"))
-				pager.last();
-			else
-			if (pagerMethod.equals("page"))
-				pager.gogo();
-		return pager;
-	}
-	
-	public static Pager getPager(HttpServletRequest httpServletRequest, int totalRows, int pageSize)
-	{
-		Pager pager = new Pager(totalRows, pageSize);
-		String currentPage = httpServletRequest.getParameter("currentPage");
-		if (currentPage != null && !"".equals(currentPage))
-			pager.refresh(Integer.parseInt(currentPage));
-		String pagerMethod = httpServletRequest.getParameter("pageMethod");
-		if (pagerMethod != null && !"".equals(pagerMethod))
-			if (pagerMethod.equals("first"))
-				pager.first();
-			else
-			if (pagerMethod.equals("prev"))
-				pager.previous();
-			else
-			if (pagerMethod.equals("next"))
-				pager.next();
-			else
-			if (pagerMethod.equals("last"))
-				pager.last();
-			else
-			if (pagerMethod.equals("page"))
-				pager.gogo();
-		return pager;
-	}
-	
+
+    private PagerHelper() {
+    }
+
+    /**
+     * 返回的是起始号
+     *
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    public static int getStartRow(int currentPage, int pageSize) {
+        return (currentPage - 1) * pageSize;
+    }
+
+    /**
+     * 返回的是终止号
+     *
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    public static int getEndRow(int currentPage, int pageSize) {
+        return currentPage * pageSize;
+    }
+
 }

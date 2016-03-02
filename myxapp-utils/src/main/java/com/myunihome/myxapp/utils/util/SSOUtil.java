@@ -64,6 +64,9 @@ public final class SSOUtil {
 	public static String getLogOutBackUrl(){
 		return prop.getProperty("logOutBackUrl", "").trim();
 	}
+	public static String getTenantId(){
+		return prop.getProperty("tenantId", "").trim();
+	}
 	public static String getProperty(String key){
 		return prop.getProperty(key, "").trim();
 	}
