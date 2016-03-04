@@ -70,7 +70,7 @@ public class UserLoginVo implements Serializable {
 
     /****************** 工号信息 *************/
     // 工号id
-    private long Staffnoid;
+    private long staffnoId;
 
     // 员工工号
     private String staffNo;
@@ -173,15 +173,16 @@ public class UserLoginVo implements Serializable {
         this.staffNo = staffNo;
     }
 
-    public long getStaffnoid() {
-        return Staffnoid;
-    }
 
-    public void setStaffnoid(long staffnoid) {
-        Staffnoid = staffnoid;
-    }
+    public long getStaffnoId() {
+		return staffnoId;
+	}
 
-    public long getOperId() {
+	public void setStaffnoId(long staffnoId) {
+		this.staffnoId = staffnoId;
+	}
+
+	public long getOperId() {
         return operId;
     }
 
@@ -226,7 +227,7 @@ public class UserLoginVo implements Serializable {
     public String toString() {
         return "UserLoginVo [tenantId=" + tenantId + ", username=" + username + ", userEmail="
                 + userEmail + ", userPhone=" + userPhone + ", staffId=" + staffId + ", staffName="
-                + staffName + ", Staffnoid=" + Staffnoid + ", staffNo=" + staffNo + ", operId="
+                + staffName + ", Staffnoid=" + staffnoId + ", staffNo=" + staffNo + ", operId="
                 + operId + ", operCode=" + operCode + ", orgType=" + orgType + ", orgId=" + orgId
                 + "]";
     }
