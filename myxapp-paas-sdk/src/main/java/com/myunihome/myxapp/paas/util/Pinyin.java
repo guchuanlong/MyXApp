@@ -1,12 +1,12 @@
 package com.myunihome.myxapp.paas.util;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class Pinyin {
     
-    private static final Log LOGGER = LogFactory.getLog(Pinyin.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Pinyin.class);
     
     private Pinyin(){}
     

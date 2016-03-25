@@ -3,8 +3,8 @@ package com.myunihome.myxapp.paas.docstore;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.myunihome.myxapp.paas.MyXAppConfHelper;
 import com.myunihome.myxapp.paas.cache.CacheFactory;
@@ -21,7 +21,7 @@ public final class DocStoreFactory {
         
     }
 
-    private static final Log LOG = LogFactory.getLog(DocStoreFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DocStoreFactory.class);
     private static Map<String, IDocStoreClient> docStoreClients = new ConcurrentHashMap<String, IDocStoreClient>();
 
     public static IDocStoreClient getDocStorageClient() {

@@ -2,10 +2,12 @@ package com.myunihome.myxapp.paas.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ShellUtil
 {
-  private static final transient Log log = LogFactory.getLog(ShellUtil.class);
+  private static final transient Logger log = LoggerFactory.getLogger(ShellUtil.class);
 
   public static boolean execCommand(String[] cmd) {
     if (log.isDebugEnabled()) {

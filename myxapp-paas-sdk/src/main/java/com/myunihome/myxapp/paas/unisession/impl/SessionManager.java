@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.myunihome.myxapp.paas.unisession.RequestEventObserver;
 import com.myunihome.myxapp.paas.unisession.exception.SessionException;
 
 public class SessionManager {
 
-    private Log log = LogFactory.getLog(SessionManager.class);
+    private Logger log = LoggerFactory.getLogger(SessionManager.class);
     private static final String SESSION_ID_PREFIX = "MYXAPP_JSID_";
     private static String SESSION_ID_COOKIE = "MYXAPP_JSESSIONID";
     private SessionClient sessionClient = new SessionClient();

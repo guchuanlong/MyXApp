@@ -42,10 +42,10 @@ public class DubboRequestTrackFilter implements Filter {
         Result result=null;
         try{
         	//校验租户ID是否存在
-        	boolean isOK=validateTenantId(requestParams);
+        	/*boolean isOK=validateTenantId(requestParams);
         	if(!isOK){
         		throw new BusinessException(MyXAppPaaSConstant.ExceptionCode.PARAM_IS_NULL, "租户ID(tenantId)不能为空！");
-        	}
+        	}*/
         	result=invoker.invoke(invocation);
         	if(result.hasException()){
         		LOG.error("TRADE_SEQ:{},Dubbo服务端执行{}类中的{}方法发生异常", tradeSeq,reqSV, reqMethod,result.getException().getMessage());

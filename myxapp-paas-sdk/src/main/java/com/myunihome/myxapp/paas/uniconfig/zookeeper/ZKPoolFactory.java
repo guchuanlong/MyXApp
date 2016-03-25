@@ -15,14 +15,20 @@ public class ZKPoolFactory
   private static final ZKPool zkPool = new ZKPool();
 
   public static ZKPool getZKPool(String zkAddress, String zkUser, String zkPasswd, int timeOut) throws UniConfigException {
-    validateParam(zkAddress, zkUser, zkPasswd);
+    validateParam(zkAddress);
     if (zkPool.exist(zkAddress, zkUser)) {
       return zkPool;
     }
     ZKClient client = null;
     try {
-      client = new ZKClient(zkAddress, timeOut, new String[] { "digest", getAuthInfo(zkUser, zkPasswd) });
-      client.addAuth("digest", getAuthInfo(zkUser, zkPasswd));
+      if(!StringUtil.isBlank(zkUser)&&!StringUtil.isBlank(zkPasswd)){
+    	  client = new ZKClient(zkAddress, timeOut, new String[] { "digest", getAuthInfo(zkUser, zkPasswd) });
+    	  client.addAuth("digest", getAuthInfo(zkUser, zkPasswd));
+      }
+      else{
+    	  client = new ZKClient(zkAddress, timeOut, new String[0]);
+      }
+      
     } catch (Exception e) {
       throw new UniConfigException(e.getMessage());
     }
@@ -34,6 +40,9 @@ public class ZKPoolFactory
     Assert.notNull(zkAddress, "zookeeper地址为空");
     Assert.notNull(zkUser, "zookeeper用户名为空");
     Assert.notNull(zkPasswd, "zookeeper密码为空");
+  }
+  private static void validateParam(String zkAddress) {
+	  Assert.notNull(zkAddress, "zookeeper地址为空");
   }
 
   private static String getAuthInfo(String zkUser, String zkPasswd) {

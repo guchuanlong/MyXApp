@@ -5,12 +5,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Id;
 import org.apache.zookeeper.server.auth.DigestAuthenticationProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.myunihome.myxapp.paas.constants.MyXAppPaaSConstant;
 import com.myunihome.myxapp.paas.uniconfig.client.IZkAdminClient;
@@ -25,7 +25,7 @@ import com.myunihome.myxapp.paas.util.StringUtil;
 
 public class ZkAdminClient implements IZkAdminClient {
 
-    private static final Log LOG = LogFactory.getLog(ZkAdminClient.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ZkAdminClient.class);
 
     private String authInfo;
 
@@ -45,7 +45,7 @@ public class ZkAdminClient implements IZkAdminClient {
             this.zkAuthSchema = zkAuthSchema;
             this.zkPool = ZKPoolFactory.getZKPool(zkAddr, zkUser, zkPassword, timeout);
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getMessage(),e);
             throw new UniConfigException(e.getMessage(), e);
         }
     }
@@ -58,7 +58,7 @@ public class ZkAdminClient implements IZkAdminClient {
 			}
 			return get(path, null);
 		} catch (Exception e) {
-			LOG.error(e);
+			LOG.error(e.getMessage(),e);
 			throw new UniConfigException("获取节点数据失败", e);
 		}
 	}
@@ -94,7 +94,7 @@ public class ZkAdminClient implements IZkAdminClient {
 				modify(path, data);
 			}
 		} catch (Exception e) {
-			LOG.error(e);
+			LOG.error(e.getMessage(),e);
 			throw new UniConfigException("修改节点[" + path + "]配置失败", e);
 		}
 	}
@@ -109,7 +109,7 @@ public class ZkAdminClient implements IZkAdminClient {
 			client = getZkClientFromPool();
 			client.setNodeData(path, value);
 		} catch (Exception e) {
-			LOG.error(e);
+			LOG.error(e.getMessage(),e);
 			if ((e instanceof KeeperException.NoAuthException)) {
 				throw new UniConfigException("无访问节点[" + path + "]权限");
 			}
@@ -132,7 +132,7 @@ public class ZkAdminClient implements IZkAdminClient {
 			}
 			return client.exists(path);
 		} catch (Exception e) {
-			LOG.error(e);
+			LOG.error(e.getMessage(),e);
 			if ((e instanceof KeeperException.NoAuthException)) {
 				throw new RuntimeException("无访问节点[" + path + "]权限");
 			}
@@ -175,7 +175,7 @@ public class ZkAdminClient implements IZkAdminClient {
 			client.createNode(path, createWritableACL(), bytes,
 					ZKAddMode.convertMode(mode.getFlag()));
 		} catch (Exception e) {
-			LOG.error(e);
+			LOG.error(e.getMessage(),e);
 			if ((e instanceof KeeperException.NoAuthException)) {
 				throw new UniConfigException("无访问节点[" + path + "]权限");
 			}

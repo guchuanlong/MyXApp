@@ -9,12 +9,12 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CiperUtil
 {
-  private static final transient Log log = LogFactory.getLog(CiperUtil.class);
+  private static final transient Logger log = LoggerFactory.getLogger(CiperUtil.class);
   public static final String KEY_ALGORITHM = "DES";
   public static final String DES_ECB_ALGORITHM = "DES/ECB/PKCS5Padding";
   public static final String DES_CBC_ALGORITHM = "DES/CBC/PKCS5Padding";

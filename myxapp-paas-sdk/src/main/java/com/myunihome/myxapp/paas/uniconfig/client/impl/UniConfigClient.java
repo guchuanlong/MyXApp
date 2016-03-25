@@ -5,12 +5,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Id;
 import org.apache.zookeeper.server.auth.DigestAuthenticationProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.myunihome.myxapp.paas.constants.MyXAppPaaSConstant;
 import com.myunihome.myxapp.paas.uniconfig.client.IUniConfigClient;
@@ -25,7 +26,10 @@ import com.myunihome.myxapp.paas.util.StringUtil;
 
 public class UniConfigClient implements IUniConfigClient {
 
-	private static final Log LOG = LogFactory.getLog(UniConfigClient.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UniConfigClient.class);
+	//无授权信息
+	private static final String NO_AUTHINFO=":";
+		
 	// 应用程序域
 	private String appDomain;
 	// 应用程序ID
@@ -33,15 +37,45 @@ public class UniConfigClient implements IUniConfigClient {
 	// Zookeeper授权信息
 	private String authInfo;
 	// Zookeeper用户
-	private String zkUser;
+	private String zkUser="";
+	// Zookeeper密码
+	private String zkPassword="";
 	// Zookeeper客户端连接池
 	private ZKPool zkPool;
 	// Zookeeper地址
 	private String zkAddr;
 	// Zookeeper授权方式
-	private String zkAuthSchema;
+	private String zkAuthSchema="digest";
 
-	public UniConfigClient(String appDomain, String appId, String zkAddr, String zkAuthSchema, String zkUser,
+	
+	//不带认证的客户端
+	public UniConfigClient(String appDomain, String appId, String zkAddr) {
+		try {
+			this.appDomain = appDomain;
+			this.appId = appId;
+			this.authInfo = NO_AUTHINFO;
+			this.zkAddr = zkAddr;
+			this.zkPool = ZKPoolFactory.getZKPool(zkAddr, 2000,null);
+		} catch (Exception e) {
+			LOG.error(e.getMessage(),e);
+			throw new UniConfigException(e.getMessage(), e);
+		}
+	}
+	//不带认证的客户端
+	public UniConfigClient(String appDomain, String appId, String zkAddr, int timeout) {
+		try {
+			this.appDomain = appDomain;
+			this.appId = appId;
+			this.authInfo = NO_AUTHINFO;
+			this.zkAddr = zkAddr;
+			this.zkPool = ZKPoolFactory.getZKPool(zkAddr, timeout,null);
+		} catch (Exception e) {
+			LOG.error(e.getMessage(),e);
+			throw new UniConfigException(e.getMessage(), e);
+		}
+	}
+	//带认证的客户端
+	public UniConfigClient(String appDomain, String appId, String zkAddr, String zkUser,
 			String zkPassword, int timeout) {
 		try {
 			this.appDomain = appDomain;
@@ -49,10 +83,9 @@ public class UniConfigClient implements IUniConfigClient {
 			this.authInfo = (zkUser + ":" + zkPassword);
 			this.zkUser = zkUser;
 			this.zkAddr = zkAddr;
-			this.zkAuthSchema = zkAuthSchema;
 			this.zkPool = ZKPoolFactory.getZKPool(zkAddr, zkUser, zkPassword, timeout);
 		} catch (Exception e) {
-			LOG.error(e);
+			LOG.error(e.getMessage(),e);
 			throw new UniConfigException(e.getMessage(), e);
 		}
 	}
@@ -79,7 +112,7 @@ public class UniConfigClient implements IUniConfigClient {
 			}
 			return get(path, null);
 		} catch (Exception e) {
-			LOG.error(e);
+			LOG.error(e.getMessage(),e);
 			throw new UniConfigException("获取节点数据失败", e);
 		}
 	}
@@ -115,7 +148,7 @@ public class UniConfigClient implements IUniConfigClient {
 				modify(path, data);
 			}
 		} catch (Exception e) {
-			LOG.error(e);
+			LOG.error(e.getMessage(),e);
 			throw new UniConfigException("修改节点[" + path + "]配置失败", e);
 		}
 	}
@@ -130,7 +163,7 @@ public class UniConfigClient implements IUniConfigClient {
 			client = getZkClientFromPool();
 			client.setNodeData(appendDomainAndId(path), value);
 		} catch (Exception e) {
-			LOG.error(e);
+			LOG.error(e.getMessage(),e);
 			if ((e instanceof KeeperException.NoAuthException)) {
 				throw new UniConfigException("无访问节点[" + path + "]权限");
 			}
@@ -153,7 +186,7 @@ public class UniConfigClient implements IUniConfigClient {
 			}
 			return client.exists(appendDomainAndId(path));
 		} catch (Exception e) {
-			LOG.error(e);
+			LOG.error(e.getMessage(),e);
 			if ((e instanceof KeeperException.NoAuthException)) {
 				throw new RuntimeException("无访问节点[" + path + "]权限");
 			}
@@ -196,7 +229,7 @@ public class UniConfigClient implements IUniConfigClient {
 			client.createNode(appendDomainAndId(path), createWritableACL(), bytes,
 					ZKAddMode.convertMode(mode.getFlag()));
 		} catch (Exception e) {
-			LOG.error(e);
+			LOG.error(e.getMessage(),e);
 			if ((e instanceof KeeperException.NoAuthException)) {
 				throw new UniConfigException("无访问节点[" + path + "]权限");
 			}
@@ -206,11 +239,19 @@ public class UniConfigClient implements IUniConfigClient {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private List<ACL> createWritableACL() throws NoSuchAlgorithmException {
-		List<ACL> acls = new ArrayList();
-		Id id1 = new Id(this.zkAuthSchema, DigestAuthenticationProvider.generateDigest(this.authInfo));
-		ACL userACL = new ACL(31, id1);
-		acls.add(userACL);
-		return acls;
+		//如果授权信息里没有用户名和密码，则访问控制列表面向所有人
+		if(NO_AUTHINFO.equalsIgnoreCase(this.authInfo.trim())){
+			return ZooDefs.Ids.OPEN_ACL_UNSAFE;
+		}
+		else{
+			//访问控制列表为当前的authInfo信息
+			List<ACL> acls = new ArrayList();
+			Id id1 = new Id(this.zkAuthSchema, DigestAuthenticationProvider.generateDigest(this.authInfo));
+			ACL userACL = new ACL(31, id1);
+			acls.add(userACL);
+			return acls;
+			
+		}
 	}
 
 	@Override

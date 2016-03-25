@@ -7,11 +7,11 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Random;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class CertValidateUtil {
-	private static final Log LOG = LogFactory.getLog(CertValidateUtil.class);
+	private static final Logger LOG = LoggerFactory.getLogger(CertValidateUtil.class);
 	private CertValidateUtil(){}
     // 位权值数组
     private static final byte[] WI = new byte[17];

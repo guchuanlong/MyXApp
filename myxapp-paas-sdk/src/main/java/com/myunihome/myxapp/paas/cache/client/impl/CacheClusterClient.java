@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.myunihome.myxapp.paas.cache.client.ICacheClient;
 import com.myunihome.myxapp.paas.cache.exception.CacheClientException;
@@ -24,7 +24,7 @@ import redis.clients.jedis.JedisPoolConfig;
  */
 public class CacheClusterClient implements ICacheClient
 {
-  private static final transient Log LOG = LogFactory.getLog(CacheClusterClient.class);
+  private static final transient Logger LOG = LoggerFactory.getLogger(CacheClusterClient.class);
   private JedisPoolConfig jedisPoolConfig;
   private String[] jedisHostAndPorts;
   private String jedisPassword;

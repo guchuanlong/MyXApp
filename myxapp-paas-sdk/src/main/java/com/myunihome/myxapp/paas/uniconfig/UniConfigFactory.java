@@ -1,7 +1,7 @@
 package com.myunihome.myxapp.paas.uniconfig;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.myunihome.myxapp.paas.MyXAppConfHelper;
 import com.myunihome.myxapp.paas.model.UniConfigZkInfo;
@@ -9,7 +9,7 @@ import com.myunihome.myxapp.paas.uniconfig.client.IUniConfigClient;
 import com.myunihome.myxapp.paas.uniconfig.client.impl.UniConfigClient;
 
 public final class UniConfigFactory {
-	private static final Log LOG = LogFactory.getLog(UniConfigFactory.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UniConfigFactory.class);
     private UniConfigFactory(){
         
     }
@@ -27,7 +27,7 @@ public final class UniConfigFactory {
         LOG.debug("uniconfig zkPassword:" + zkPassword);
         LOG.debug("uniconfig zkTimeout:" + zkTimeout);
         LOG.debug("uniconfig zkAuthSchema:" + zkAuthSchema);
-        return new UniConfigClient(appDomain,appId,zkAddress, zkAuthSchema,zkUser, zkPassword,  zkTimeout);
+        return new UniConfigClient(appDomain,appId,zkAddress, zkUser, zkPassword,  zkTimeout);
     }
 
 }

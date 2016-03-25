@@ -86,6 +86,10 @@ dependencies {
     //elasticsearch
     compile 'org.elasticsearch:elasticsearch:1.7.3'
     
+    //apache mail
+    compile	'org.apache.commons:commons-email:1.4'
+    compile 'org.dom4j:dom4j:1.6.1'
+    
     
     testCompile(
             "org.springframework:spring-test:4.1.7.RELEASE",
@@ -138,24 +142,24 @@ publishing {
                         //    delegate.version("2.3")
                         //}
                         
-                        ////slf4j日志API
-                        //delegate.dependency {
-                        //    delegate.groupId("org.slf4j")
-                        //    delegate.artifactId("slf4j-api")
-                        //    delegate.version("1.7.12")
-                        //}
+                        //slf4j日志API
+                        delegate.dependency {
+                            delegate.groupId("org.slf4j")
+                            delegate.artifactId("slf4j-api")
+                            delegate.version("1.7.12")
+                        }
                         ////slf4j适配log4j1 
                         //delegate.dependency {
                         //    delegate.groupId("org.slf4j")
                         //    delegate.artifactId("slf4j-log4j12")
                         //    delegate.version("1.7.12")
                         //}
-                        ////slf4j适配log4j2 优先级高于log4j1
-                        //delegate.dependency {
-                        //    delegate.groupId("org.apache.logging.log4j")
-                        //    delegate.artifactId("log4j-slf4j-impl")
-                        //    delegate.version("2.4")
-                        //}
+                        //slf4j适配log4j2 优先级高于log4j1
+                        delegate.dependency {
+                            delegate.groupId("org.apache.logging.log4j")
+                            delegate.artifactId("log4j-slf4j-impl")
+                            delegate.version("2.4")
+                        }
                         
                     	//commons
                         delegate.dependency {
@@ -359,6 +363,19 @@ publishing {
                             delegate.groupId("javax.ws.rs")
                             delegate.artifactId("javax.ws.rs-api")
                             delegate.version("2.0.1")
+                        }
+                        
+                        
+                        //java mail
+                        delegate.dependency {
+                            delegate.groupId("org.apache.commons")
+                            delegate.artifactId("commons-email")
+                            delegate.version("1.4")
+                        }
+                        delegate.dependency {
+                            delegate.groupId("org.dom4j")
+                            delegate.artifactId("dom4j")
+                            delegate.version("1.6.1")
                         }
                         
                     }

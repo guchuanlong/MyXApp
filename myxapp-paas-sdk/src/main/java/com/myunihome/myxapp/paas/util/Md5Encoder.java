@@ -3,11 +3,11 @@ package com.myunihome.myxapp.paas.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class Md5Encoder {
-	private static final Log LOG = LogFactory.getLog(Md5Encoder.class);
+	private static final Logger LOG = LoggerFactory.getLogger(Md5Encoder.class);
     private Md5Encoder() {
     }
 
