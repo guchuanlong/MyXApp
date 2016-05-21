@@ -1,8 +1,0 @@
-dependencies {
-    compile project(":myxapp-paas-sdk")	
-    
-    testCompile(
-            "org.springframework:spring-test:4.1.7.RELEASE",
-            "junit:junit:4.12"
-    )
-}

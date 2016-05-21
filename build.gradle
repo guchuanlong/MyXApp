@@ -49,15 +49,15 @@ subprojects {
 
 }
 
-project("myxapp-paas-sdk") {
+project("myxapp-sdk") {
     project.ext {
-        appName = "myxapp-paas-sdk"        
+        appName = "myxapp-sdk"        
     }
 
     jar {
         baseName appName
         version moduleVersion
-		include "com/myunihome/myxapp/paas/*/**"
+		//include "com/myunihome/myxapp/paas/*/**"
         manifest {
             attributes 'packageName': appName, 'Built-By': builtBy, 'create-date': new Date().format('yyyy-MM-dd HH:mm:ss')
         }
@@ -75,40 +75,6 @@ project("myxapp-base") {
         baseName appName
         version moduleVersion
         include "com/myunihome/myxapp/base/*/**"
-        manifest {
-            attributes 'packageName': appName, 'Built-By': builtBy, 'create-date': new Date().format('yyyy-MM-dd HH:mm:ss')
-        }
-    }
-    
-    publish.dependsOn build
-}
-
-project("myxapp-utils") {
-    project.ext {
-        appName = "myxapp-utils"
-    }
-
-    jar {
-        baseName appName
-        version moduleVersion
-        //include "com/myunihome/myxapp/utils/*/**"
-        manifest {
-            attributes 'packageName': appName, 'Built-By': builtBy, 'create-date': new Date().format('yyyy-MM-dd HH:mm:ss')
-        }
-    }
-    
-    publish.dependsOn build
-}
-
-project("myxapp-uip") {
-    project.ext {
-        appName = "myxapp-uip"
-    }
-
-    jar {
-        baseName appName
-        version moduleVersion
-        include "com/myunihome/myxapp/uip/*/**"
         manifest {
             attributes 'packageName': appName, 'Built-By': builtBy, 'create-date': new Date().format('yyyy-MM-dd HH:mm:ss')
         }
