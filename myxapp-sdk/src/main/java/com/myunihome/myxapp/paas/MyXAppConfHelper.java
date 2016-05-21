@@ -43,8 +43,13 @@ public final class MyXAppConfHelper {
 
     public static MyXAppConfHelper getInstance() {
         if (instance == null) {
-            loadProp();
-            instance = new MyXAppConfHelper();
+        	synchronized(MyXAppConfHelper.class){
+        		if (instance == null) {
+        			loadProp();
+        			instance = new MyXAppConfHelper();
+        		}
+        		
+        	}
         }
         return instance;
     }
