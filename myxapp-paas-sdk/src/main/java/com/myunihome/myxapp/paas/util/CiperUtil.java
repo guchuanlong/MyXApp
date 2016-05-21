@@ -140,7 +140,10 @@ public class CiperUtil
   public static void main(String[] args)
   {
     String bb = decrypt("1@3^$aGH;._|$!@#", "ec4c9e0e78f76a69");
+    String bb2 = decrypt(SECURITY_KEY, "47e396b90225d8abb68c3cf029529c3e4a59efe425440cbc88a599bddbb025651baa86637a3d840a88a599bddbb025654b2ed7a3423f0e6f");
     System.out.println("bb:" + bb);
+    System.out.println("bb2:" + bb2);
     System.out.println(encrypt(SECURITY_KEY, "admin"));
+    System.out.println(encrypt(SECURITY_KEY, "accountId=1&password=ec4c9e0e78f76a69ec4c9e0e78f76a69"));
   }
 }

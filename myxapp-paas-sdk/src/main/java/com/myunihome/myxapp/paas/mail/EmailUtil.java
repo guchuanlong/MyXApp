@@ -7,7 +7,6 @@ import java.util.Properties;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 
-import com.myunihome.myxapp.paas.exception.PaasException;
 import com.myunihome.myxapp.paas.exception.PaasRuntimeException;
 import com.myunihome.myxapp.paas.util.CollectionUtil;
 
