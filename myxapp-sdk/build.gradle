@@ -97,18 +97,15 @@ dependencies {
     compile 'org.apache.poi:poi-ooxml:3.13'
     compile 'org.apache.poi:poi-ooxml-schemas:3.13'
     
-    
+    //zxing qrcode
+	compile 'com.google.zxing:core:3.2.1'
+	compile 'com.google.zxing:javase:3.2.1'
+	
     testCompile(
             "org.springframework:spring-test:4.1.7.RELEASE",
             "junit:junit:4.12"
     )
 }
-
-
-
-
-
-
 
 publishing {
     publications {
@@ -412,6 +409,18 @@ publishing {
                             delegate.groupId("org.apache.poi")
                             delegate.artifactId("poi-ooxml-schemas")
                             delegate.version("3.13")
+                        }
+                        
+                        //zxing qrcode
+                        delegate.dependency {
+                            delegate.groupId("com.google.zxing")
+                            delegate.artifactId("core")
+                            delegate.version("3.2.1")
+                        }
+                        delegate.dependency {
+                            delegate.groupId("com.google.zxing")
+                            delegate.artifactId("javase")
+                            delegate.version("3.2.1")
                         }
                         
                     }

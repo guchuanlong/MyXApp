@@ -53,7 +53,7 @@ public class DataSourceConfigTest {
 		System.out.println("写入验证回读["+dbPath+"]，data="+queryDataSourceConfig());
 	}
 	@Test
-	@Ignore
+	//@Ignore
 	public void testReadDataSourceConfig(){
 		System.out.println("查询数据["+dbPath+"]，data="+queryDataSourceConfig());
 	}
