@@ -4,8 +4,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.myunihome.myxapp.utils.util.DubboPropUtil;
-
 public final class DubboServiceStart {
     
     private static final Log LOG = LogFactory.getLog(DubboServiceStart.class.getName());
