@@ -18,7 +18,7 @@ public final class DubboServiceStart {
     private static void startDubbo() {
         LOG.info("开始启动 Dubbo 服务---------------------------");
         // 从配置中心加载DUBBO的核心配置
-        DubboPropUtil.setDubboProviderProperties();
+        //DubboPropUtil.setDubboProviderProperties();
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 new String[] { DUBBO_CONTEXT });
         context.registerShutdownHook();
