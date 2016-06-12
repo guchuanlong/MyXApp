@@ -49,7 +49,7 @@ public class DubboRequestTrackFilter implements Filter {
         	}*/
         	result=invoker.invoke(invocation);
         	if(result.hasException()){
-        		LOG.error("TRADE_SEQ:{},Dubbo服务端执行{}类中的{}方法发生异常", tradeSeq,reqSV, reqMethod,result.getException().getMessage());
+        		LOG.error("TRADE_SEQ:{},Dubbo服务端执行{}类中的{}方法发生异常", tradeSeq,reqSV, reqMethod,result.getException());
         		throw DubboExceptAssembler.assemble(result.getException());        		
         	}
         	LOG.info("TRADE_SEQ:{},拦截类型:{},请求结果:{}"
@@ -58,7 +58,7 @@ public class DubboRequestTrackFilter implements Filter {
           return result;
         }        
         catch(Exception ex){
-        	LOG.error("TRADE_SEQ:{},执行{}类中的{}方法发生异常:", tradeSeq,reqSV, reqMethod);
+        	LOG.error("TRADE_SEQ:{},执行{}类中的{}方法发生异常:", tradeSeq,reqSV, reqMethod,ex);
         	RpcResult r = new RpcResult();
             r.setException(DubboExceptAssembler.assemble(ex));
             return r;
