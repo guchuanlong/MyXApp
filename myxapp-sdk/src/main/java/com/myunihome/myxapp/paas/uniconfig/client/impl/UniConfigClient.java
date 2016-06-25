@@ -75,7 +75,12 @@ public class UniConfigClient implements IUniConfigClient {
 		StringBuilder sb = new StringBuilder();
 		sb.append(MyXAppPaaSConstant.UNIX_SEPERATOR + this.appDomain);
 		sb.append(MyXAppPaaSConstant.UNIX_SEPERATOR + this.appId);
-		sb.append(path);
+		if(!StringUtil.isBlank(path)&&!path.startsWith(MyXAppPaaSConstant.UNIX_SEPERATOR)){
+			sb.append(MyXAppPaaSConstant.UNIX_SEPERATOR);
+		}
+		if(!StringUtil.isBlank(path)){
+			sb.append(path);			
+		}
 		LOG.debug("Real path=" + sb.toString());
 		return sb.toString();
 	}
