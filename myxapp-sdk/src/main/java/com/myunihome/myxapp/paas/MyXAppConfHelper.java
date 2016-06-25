@@ -101,19 +101,6 @@ public final class MyXAppConfHelper {
     	return appDomain+"$"+appId;
     }
     /**
-     * 配置中心类型.<br>
-     * 目前仅支持zookeeper的配置中心paas.uniconfig.type=uniconfig_zk
-     * @return
-     * @author gucl
-     */
-    public String getUniConfigType() {
-		String type = prop.getProperty("paas.uniconfig.type");
-        if (StringUtil.isBlank(type)) {
-            throw new PaasRuntimeException("uniconfig type is null");
-        }
-        return type;
-	}
-    /**
      * zookeeper配置信息
      * @return
      * @author gucl
@@ -124,11 +111,12 @@ public final class MyXAppConfHelper {
         String zkUser = prop.getProperty("paas.uniconfig.zkUser");
         String zkPasswd = prop.getProperty("paas.uniconfig.zkPassword");
         String timeoutStr = prop.getProperty("paas.uniconfig.zkTimeout");
-        int timeout=0;
+        //默认超时时间2秒
+        int timeout=2000;
         if (StringUtil.isBlank(zkAddress)) {
             throw new PaasRuntimeException("paas uniconfig zkAddress is null");
         }
-        if (StringUtil.isBlank(zkAuthSchema)) {
+        /*if (StringUtil.isBlank(zkAuthSchema)) {
             throw new PaasRuntimeException("paas uniconfig zkAuthSchema is null");
         }
         if (StringUtil.isBlank(zkUser)) {
@@ -136,7 +124,7 @@ public final class MyXAppConfHelper {
         }
         if (StringUtil.isBlank(zkPasswd)) {
             throw new PaasRuntimeException("paas uniconfig zkPasswd is null");
-        }
+        }*/
         if (!StringUtil.isBlank(timeoutStr)) {
             timeout=Integer.parseInt(timeoutStr);
         }

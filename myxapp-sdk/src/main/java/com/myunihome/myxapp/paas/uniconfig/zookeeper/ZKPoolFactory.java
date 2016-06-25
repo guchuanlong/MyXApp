@@ -13,7 +13,28 @@ import com.myunihome.myxapp.paas.util.StringUtil;
 public class ZKPoolFactory
 {
   private static final ZKPool zkPool = new ZKPool();
-
+  public static ZKPool getZKPool(String zkAddress) throws UniConfigException {
+	    return getZKPool(zkAddress, null, null, 2000);
+  }
+  public static ZKPool getZKPool(String zkAddress,int timeOut) throws UniConfigException {
+	  return getZKPool(zkAddress, null, null, timeOut);
+  }
+  public static ZKPool getZKPool(String zkAddress, String zkUser, String zkPasswd) throws UniConfigException {
+	    return getZKPool(zkAddress, zkUser, zkPasswd, 2000);
+  }
+  public static ZKPool getZKPool(String zkAddress, int timeOut, String[] authInfo) throws UniConfigException {
+    String zkUser = null;
+    String zkPasswd = null;
+    if ((null != authInfo) && (authInfo.length >= 2)) {
+      if (!StringUtil.isBlank(authInfo[0])) {
+        zkUser = authInfo[0];
+      }
+      if (!StringUtil.isBlank(authInfo[1])) {
+        zkPasswd = authInfo[1];
+      }
+    }
+    return getZKPool(zkAddress, zkUser, zkPasswd, 2000);
+  }
   public static ZKPool getZKPool(String zkAddress, String zkUser, String zkPasswd, int timeOut) throws UniConfigException {
     validateParam(zkAddress);
     if (zkPool.exist(zkAddress, zkUser)) {
@@ -49,21 +70,4 @@ public class ZKPoolFactory
     return zkUser + ":" + zkPasswd;
   }
 
-  public static ZKPool getZKPool(String zkAddress, String zkUser, String zkPasswd) throws UniConfigException {
-    return getZKPool(zkAddress, zkUser, zkPasswd, 2000);
-  }
-
-  public static ZKPool getZKPool(String zkAddress, int timeOut, String[] authInfo) throws UniConfigException {
-    String zkUser = null;
-    String zkPasswd = null;
-    if ((null != authInfo) && (authInfo.length >= 2)) {
-      if (!StringUtil.isBlank(authInfo[0])) {
-        zkUser = authInfo[0];
-      }
-      if (!StringUtil.isBlank(authInfo[1])) {
-        zkPasswd = authInfo[1];
-      }
-    }
-    return getZKPool(zkAddress, zkUser, zkPasswd, 2000);
-  }
 }

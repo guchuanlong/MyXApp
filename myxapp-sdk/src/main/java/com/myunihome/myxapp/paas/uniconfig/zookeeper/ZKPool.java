@@ -1,6 +1,8 @@
 package com.myunihome.myxapp.paas.uniconfig.zookeeper;
 
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.myunihome.myxapp.paas.util.StringUtil;
 /**
  * zookeeper客户端连接池
  *
@@ -17,7 +19,12 @@ public class ZKPool
   }
 
   private String appendKey(String zkAddr, String zkUserName) {
-    return zkAddr + "-" + zkUserName;
+	  StringBuilder key=new StringBuilder(zkAddr);
+	  if(!StringUtil.isBlank(zkUserName)){
+		  key.append("-");
+		  key.append(zkUserName);
+	  }
+    return key.toString();
   }
 
   public void addZKClient(String zkAddr, String zkUserName, ZKClient zkClient) {

@@ -28,7 +28,7 @@ public class UniConfigClient implements IUniConfigClient {
 
 	private static final Logger LOG = LoggerFactory.getLogger(UniConfigClient.class);
 	//无授权信息
-	private static final String NO_AUTHINFO=":";
+	//private static final String NO_AUTHINFO=":";
 		
 	// 应用程序域
 	private String appDomain;
@@ -47,41 +47,17 @@ public class UniConfigClient implements IUniConfigClient {
 	// Zookeeper授权方式
 	private String zkAuthSchema="digest";
 
-	
-	//不带认证的客户端
-	public UniConfigClient(String appDomain, String appId, String zkAddr) {
-		try {
-			this.appDomain = appDomain;
-			this.appId = appId;
-			this.authInfo = NO_AUTHINFO;
-			this.zkAddr = zkAddr;
-			this.zkPool = ZKPoolFactory.getZKPool(zkAddr, 2000,null);
-		} catch (Exception e) {
-			LOG.error(e.getMessage(),e);
-			throw new UniConfigException(e.getMessage(), e);
-		}
-	}
-	//不带认证的客户端
-	public UniConfigClient(String appDomain, String appId, String zkAddr, int timeout) {
-		try {
-			this.appDomain = appDomain;
-			this.appId = appId;
-			this.authInfo = NO_AUTHINFO;
-			this.zkAddr = zkAddr;
-			this.zkPool = ZKPoolFactory.getZKPool(zkAddr, timeout,null);
-		} catch (Exception e) {
-			LOG.error(e.getMessage(),e);
-			throw new UniConfigException(e.getMessage(), e);
-		}
-	}
 	//带认证的客户端
 	public UniConfigClient(String appDomain, String appId, String zkAddr, String zkUser,
 			String zkPassword, int timeout) {
 		try {
 			this.appDomain = appDomain;
 			this.appId = appId;
-			this.authInfo = (zkUser + ":" + zkPassword);
+			if(!StringUtil.isBlank(zkUser)&&!StringUtil.isBlank(zkPassword)){
+				this.authInfo = (zkUser + ":" + zkPassword);				
+			}
 			this.zkUser = zkUser;
+			this.zkPassword=zkPassword;
 			this.zkAddr = zkAddr;
 			this.zkPool = ZKPoolFactory.getZKPool(zkAddr, zkUser, zkPassword, timeout);
 		} catch (Exception e) {
@@ -240,7 +216,7 @@ public class UniConfigClient implements IUniConfigClient {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private List<ACL> createWritableACL() throws NoSuchAlgorithmException {
 		//如果授权信息里没有用户名和密码，则访问控制列表面向所有人
-		if(NO_AUTHINFO.equalsIgnoreCase(this.authInfo.trim())){
+		if(StringUtil.isBlank(this.authInfo)){
 			return ZooDefs.Ids.OPEN_ACL_UNSAFE;
 		}
 		else{
