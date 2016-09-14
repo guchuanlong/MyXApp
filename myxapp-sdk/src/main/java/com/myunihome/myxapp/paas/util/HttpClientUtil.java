@@ -21,12 +21,19 @@ import org.slf4j.LoggerFactory;
 public class HttpClientUtil {
     private static final Logger logger = LoggerFactory.getLogger(HttpClientUtil.class);
 
-    public static String sendPostRequest(String url, String data, Map<String, String> header) throws IOException,
+    public static String sendPost(String url, String data, Map<String, String> header) throws IOException,
             URISyntaxException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(new URL(url).toURI());
-        for (Map.Entry<String, String> entry : header.entrySet()) {
-            httpPost.setHeader(entry.getKey(), entry.getValue());
+        String charset = "utf-8";
+        if(header!=null){
+        	for (Map.Entry<String, String> entry : header.entrySet()) {
+        		httpPost.setHeader(entry.getKey(), entry.getValue());
+        		if("charset".equals(entry.getKey())){
+                    charset = entry.getValue();
+                }
+        	}
+        	
         }
         StringEntity dataEntity = new StringEntity(data, ContentType.APPLICATION_JSON);
         httpPost.setEntity(dataEntity);
@@ -35,7 +42,7 @@ public class HttpClientUtil {
             if (response.getStatusLine().getStatusCode() == 200) {
                 HttpEntity entity = response.getEntity();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(
-                        entity.getContent()));
+                        entity.getContent(), charset));
                 StringBuffer buffer = new StringBuffer();
                 String tempStr;
                 while ((tempStr = reader.readLine()) != null)
@@ -51,12 +58,12 @@ public class HttpClientUtil {
         }
     }
 
-    public static String send(String address, String param) {
+    public static String sendPost(String address, String param) {
         logger.info("restful address : " + address);
         logger.info("param : " + param);
         String result = "";
         try {
-            result = HttpClientUtil.sendPostRequest(address, param, null);
+            result = HttpClientUtil.sendPost(address, param, null);
             logger.info("result : " + result);
         } catch (IOException e) {
             String errorMessage = e.getMessage();
@@ -140,7 +147,7 @@ public class HttpClientUtil {
         headerValue.put("appkey","03379980ba661ad9ba678d386e39c1ca");
         headerValue.put("sign","12345");
 
-        String result = HttpClientUtil.sendPostRequest(
+        String result = HttpClientUtil.sendPost(
                 "http://10.1.235.246:8081/serviceAgent/http/BIS-3A-USERADD", "{\"loginname\":\"xj109\",\"orgcode\":\"4001\",\"password\":\"abcdEFG123\",\"status\":\"active\"}", headerValue);
         System.out.println("++++++++++++  " + result);
 
