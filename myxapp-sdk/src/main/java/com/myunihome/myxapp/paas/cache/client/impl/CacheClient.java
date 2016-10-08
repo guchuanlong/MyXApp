@@ -1127,5 +1127,35 @@ public class CacheClient implements ICacheClient
       }
     }
   }
+@Override
+public Long setnx(String key, String value) {
+	Jedis jedis = null;
+    try {
+      jedis = getJedis();
+      return jedis.setnx(key, value);
+    } catch (Exception e) {
+      LOG.error(e.getMessage(), e);
+      throw new CacheClientException(e);
+    } finally {
+      if (jedis != null) {
+        returnResource(jedis);
+      }
+    }
+}
+@Override
+public String getSet(String key, String value) {
+	Jedis jedis = null;
+    try {
+      jedis = getJedis();
+      return jedis.getSet(key, value);
+    } catch (Exception e) {
+      LOG.error(e.getMessage(), e);
+      throw new CacheClientException(e);
+    } finally {
+      if (jedis != null) {
+        returnResource(jedis);
+      }
+    }
+}
 }
 

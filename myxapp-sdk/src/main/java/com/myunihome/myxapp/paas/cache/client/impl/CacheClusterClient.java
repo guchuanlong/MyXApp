@@ -845,5 +845,26 @@ public class CacheClusterClient implements ICacheClient
     }
     finally {}
   }
+@Override
+public Long setnx(String key, String value) {
+    try {
+        Long str = this.jedisCluster.setnx(key, value);
+        return str;
+      } catch (Exception e) {
+        LOG.error(e.getMessage(), e);
+        throw new CacheClientException(e);
+      }
+      finally {}
+}
+@Override
+public String getSet(String key, String value) {
+	try {
+        return this.jedisCluster.getSet(key, value);
+      } catch (Exception e) {
+        LOG.error(e.getMessage(), e);
+        throw new CacheClientException(e);
+      }
+      finally {}
+}
 }
 

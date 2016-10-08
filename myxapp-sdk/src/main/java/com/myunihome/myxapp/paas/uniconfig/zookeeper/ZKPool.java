@@ -14,10 +14,16 @@ public class ZKPool
 {
   private static ConcurrentHashMap<String, ZKClient> clients = new ConcurrentHashMap<String, ZKClient>();
 
+  public ZKClient getZkClient(String zkAddr) throws Exception {
+	  return clients.get(appendKey(zkAddr));
+  }
   public ZKClient getZkClient(String zkAddr, String zkUserName) throws Exception {
     return clients.get(appendKey(zkAddr, zkUserName));
   }
 
+  private String appendKey(String zkAddr) {
+	  return appendKey(zkAddr,null);
+  }
   private String appendKey(String zkAddr, String zkUserName) {
 	  StringBuilder key=new StringBuilder(zkAddr);
 	  if(!StringUtil.isBlank(zkUserName)){
