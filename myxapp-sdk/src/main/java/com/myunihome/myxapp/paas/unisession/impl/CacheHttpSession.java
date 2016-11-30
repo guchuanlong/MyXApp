@@ -26,6 +26,17 @@ public class CacheHttpSession implements HttpSession, Serializable {
     @SuppressWarnings({"unchecked", "rawtypes"})
     private Map<String, Object> data = new ConcurrentHashMap();
 
+    //GUCL:应用上下文
+    private String contextPath=null;
+
+	public String getContextPath() {
+		return contextPath;
+	}
+
+	public void setContextPath(String contextPath) {
+		this.contextPath = contextPath;
+	}
+	
     public void setListener(SessionListener listener) {
         this.listener = listener;
     }

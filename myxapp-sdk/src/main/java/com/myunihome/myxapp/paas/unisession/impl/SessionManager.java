@@ -94,6 +94,9 @@ public class SessionManager {
         session.isNew = true;
         if (this.log.isDebugEnabled())
             this.log.debug("CacheHttpSession Create [ID=" + session.id + "]");
+        
+        //GUCL：将应用程序上下文存放到session的contextPath里面
+        session.setContextPath(request.getContextPath());
         saveCookie(session, request, response);
         return session;
     }
@@ -140,8 +143,8 @@ public class SessionManager {
         Cookie cookie = new Cookie(SESSION_ID_COOKIE, null);
         if (!StringUtils.isBlank(domain))
             cookie.setDomain(domain);
-        cookie.setPath(StringUtils.isBlank(request.getContextPath()) ? "/"
-                : request.getContextPath());
+        cookie.setPath(StringUtils.isBlank(session.getContextPath()) ? "/"
+                : session.getContextPath());
         if (session.expired)
             cookie.setMaxAge(0);
         else if (session.isNew) {
@@ -163,8 +166,8 @@ public class SessionManager {
                 if (SESSION_ID_COOKIE.equals(cookie.getName())) {
                     if (!StringUtils.isBlank(domain))
                         cookie.setDomain(domain);
-                    cookie.setPath(StringUtils.isBlank(request.getContextPath()) ? "/"
-                            : request.getContextPath());
+                    cookie.setPath(StringUtils.isBlank(session.getContextPath()) ? "/"
+                            : session.getContextPath());
                     cookie.setMaxAge(0);
                 }
             }
