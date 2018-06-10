@@ -38,9 +38,9 @@ public final class CacheFactory {
         if(StringUtil.isBlank(namespace)){
         	namespace=MyXAppPaaSConstant.DEFAULT;
         }
-        String appDomain=MyXAppConfHelper.getInstance().getAppDomain();
+        //String appDomain=MyXAppConfHelper.getInstance().getAppDomain();
         String appId=MyXAppConfHelper.getInstance().getAppId();
-        String cacheClientId=appDomain+"$"+appId+"$"+namespace;
+        String cacheClientId=appId+"$"+namespace;
         //获取配置信息
         LOG.info("Get CacheConfigInfo ...");
         CacheConfigInfo cacheConfigInfo=MyXAppConfHelper.getInstance().getCacheConfig(namespace);

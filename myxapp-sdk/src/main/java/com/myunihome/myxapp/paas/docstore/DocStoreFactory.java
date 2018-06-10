@@ -35,9 +35,8 @@ public final class DocStoreFactory {
         }
         LOG.debug("Get DocStore Conf ...");
         DocStoreConfigInfo config=MyXAppConfHelper.getInstance().getDocStoreConfig(namespace);
-        String appDomain=MyXAppConfHelper.getInstance().getAppDomain();
         String appId=MyXAppConfHelper.getInstance().getAppId();
-        String docStoreKey=appDomain+"$"+appId+"$"+namespace;
+        String docStoreKey=appId+"$"+namespace;
         
         if (docStoreClients.containsKey(docStoreKey)) {
           docStoreClient = (IDocStoreClient)docStoreClients.get(docStoreKey);

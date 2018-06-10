@@ -69,13 +69,13 @@ public final class MyXAppConfHelper {
      * @return
      * @author gucl
      */
-    public String getAppDomain() {
+    /*public String getAppDomain() {
     	String appDomain = prop.getProperty("paas.uniconfig.appDomain");
     	if (StringUtil.isBlank(appDomain)) {
     		throw new PaasRuntimeException("uniconfig appDomain is null");
     	}
     	return appDomain;
-    }
+    }*/
     /**
      * 应用程序Id.<br>
      * @return
@@ -89,7 +89,7 @@ public final class MyXAppConfHelper {
     	return appId;
     }
     
-    public String getAppDomainAndAppId(){
+    /*public String getAppDomainAndAppId(){
     	String appDomain = prop.getProperty("paas.uniconfig.appDomain");
     	if (StringUtil.isBlank(appDomain)) {
     		throw new PaasRuntimeException("uniconfig appDomain is null");
@@ -99,7 +99,7 @@ public final class MyXAppConfHelper {
     		throw new PaasRuntimeException("uniconfig appId is null");
     	}
     	return appDomain+"$"+appId;
-    }
+    }*/
     /**
      * zookeeper配置信息
      * @return

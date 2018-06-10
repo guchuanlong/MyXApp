@@ -31,7 +31,7 @@ public class UniConfigClient implements IUniConfigClient {
 	//private static final String NO_AUTHINFO=":";
 		
 	// 应用程序域
-	private String appDomain;
+	//private String appDomain;
 	// 应用程序ID
 	private String appId;
 	// Zookeeper授权信息
@@ -48,10 +48,9 @@ public class UniConfigClient implements IUniConfigClient {
 	private String zkAuthSchema="digest";
 
 	//带认证的客户端
-	public UniConfigClient(String appDomain, String appId, String zkAddr, String zkUser,
+	public UniConfigClient(String appId, String zkAddr, String zkUser,
 			String zkPassword, int timeout) {
 		try {
-			this.appDomain = appDomain;
 			this.appId = appId;
 			if(!StringUtil.isBlank(zkUser)&&!StringUtil.isBlank(zkPassword)){
 				this.authInfo = (zkUser + ":" + zkPassword);				
@@ -73,7 +72,7 @@ public class UniConfigClient implements IUniConfigClient {
 	 */
 	private String appendDomainAndId(String path) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(MyXAppPaaSConstant.UNIX_SEPERATOR + this.appDomain);
+		//sb.append(MyXAppPaaSConstant.UNIX_SEPERATOR + this.appDomain);
 		sb.append(MyXAppPaaSConstant.UNIX_SEPERATOR + this.appId);
 		if(!StringUtil.isBlank(path)&&!path.startsWith(MyXAppPaaSConstant.UNIX_SEPERATOR)){
 			sb.append(MyXAppPaaSConstant.UNIX_SEPERATOR);

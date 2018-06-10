@@ -18,7 +18,7 @@ public class SearchClientFactory {
 	public static ISearchClient getSearchClient(String namespace) throws Exception {
 		ISearchClient iSearchClient = null;
 		log.info("Check Formal Parameter AuthDescriptor ...");
-		String clientKey = MyXAppConfHelper.getInstance().getAppDomainAndAppId() + "$" + namespace;
+		String clientKey = MyXAppConfHelper.getInstance().getAppId() + "$" + namespace;
 		if (searchClients.containsKey(clientKey)) {
 			iSearchClient = (ISearchClient) searchClients.get(clientKey);
 			return iSearchClient;

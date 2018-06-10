@@ -14,7 +14,7 @@ public final class UniConfigFactory {
         
     }
     public static IUniConfigClient getUniConfigClient() {
-    	String appDomain=MyXAppConfHelper.getInstance().getAppDomain();
+    	//String appDomain=MyXAppConfHelper.getInstance().getAppDomain();
     	String appId=MyXAppConfHelper.getInstance().getAppId();
     	UniConfigZkInfo uniConfZkInfo=MyXAppConfHelper.getInstance().getUniConfigZkConf();
         String zkAddress = uniConfZkInfo.getZkAddress();
@@ -27,7 +27,7 @@ public final class UniConfigFactory {
         LOG.debug("uniconfig zkPassword:" + zkPassword);
         LOG.debug("uniconfig zkTimeout:" + zkTimeout);
         LOG.debug("uniconfig zkAuthSchema:" + zkAuthSchema);
-        return new UniConfigClient(appDomain,appId,zkAddress, zkUser, zkPassword,  zkTimeout);
+        return new UniConfigClient(appId,zkAddress, zkUser, zkPassword,  zkTimeout);
     }
 
 }
